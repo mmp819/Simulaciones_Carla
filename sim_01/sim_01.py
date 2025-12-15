@@ -3,117 +3,170 @@
 Simulacion 01 utilizando dos ego vehicles en el mapa 10 de Carla.
 Se conducen de forma automática.
 La información se imprime en pantalla.
-Solo se almacenan las imágenes y otras renderizaciones como prueba.
+Ejecucion asincrona. El cliente espera un tick del servidor.
+Información recogida:
+- RGB
+- Colisiones
+- Invasion de linea
+- Obstaculos detectados
+- GNSS
+- IMU
 
-@author Mario Martin <martinperezm@unican.es>, CARLA Simulator 
+@author Mario Martin <martinperezm@unican.es>, CARLA Simulator Tutorial
 @version 1.0.12-25
 """
 
 import carla
 
 import argparse
-import time
+# import time # Utilizar en caso de añadir sleeps
 import logging
 import random
+import sys
 
-# CONSTANTES
 NUM_EGO_VEHICLES = 2
-VEHICLE_MODEL = 'vehicle.tesla.model3'
 ROLE_NAME = 'ego_'
 SENSOR_TICK = 5.0
 
-def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point_idx, sensor_configuration):
-    ego_bp = world.get_blueprint_library().find(ego_bp_id)
-    ego_bp.set_attribute('role_name', role_name)
-    ego_color = random.choice(ego_bp.get_attribute('color').recommended_values)
-    ego_bp.set_attribute('color', ego_color)
+# Blueprints IDs
+VEHICLE_MODEL = 'vehicle.tesla.model3'
+RGB_SENSOR = 'sensor.camera.rgb'
+COLLISION_SENSOR = 'sensor.other.collision'
+LANE_SENSOR = 'sensor.other.lane_invasion'
+OBSTACLE_SENSOR = 'sensor.other.obstacle'
+GNSS_SENSOR = 'sensor.other.gnss'
+IMU_SENSOR = 'sensor.other.imu'
+
+def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point, sensor_configuration):
+    """
+    Publica un vehiculo en el servidor de CARLA junto con sus sensores.
     
-    spawn_points = world.get_map().get_spawn_points()
+    :param world: Entorno de CARLA.
+    :param ego_bp_id: ID correspondiente al blueprint del vehiculo a generar.
+    :param role_name: Nombre identificativo a asignar al vehiculo.
+    :param spawn_point_idx: Indice del punto disponible en el que spawnear.
+    :param sensor_configuration: Sensores a habilitar.
+
+    Devuelve el vehiculo con una lista de sus sensores.
+    """
+    sensors = []
+    blueprint_library = world.get_blueprint_library()
+
+    # Establecer blueprint del vehiculo
+    vehicle_bp = blueprint_library.find(ego_bp_id)
+    vehicle_bp.set_attribute('role_name', role_name)
     
-    if len(spawn_points) > 0:
-        random.shuffle(spawn_points)
-        ego_transform = spawn_points[spawn_point_idx]
-        ego_vehicle = world.spawn_actor(ego_bp, ego_transform)
-        print('\n' + role_name + ' spawned.')
-    else: 
-        logging.warning('Could not found any spawn points.')
+    # Color aleatorio (si lo soporta el BP)
+    try:
+        if 'color' in vehicle_bp.get_attribute('color').recommended_values:
+            vehicle_color = random.choice(vehicle_bp.get_attribute('color').recommended_values)
+            vehicle_bp.set_attribute('color', vehicle_color)
+    except AttributeError:
+        pass
+
+    # Spawnear vehiculo
+    vehicle = world.try_spawn_actor(vehicle_bp, spawn_point)
+
+    if vehicle is None:
+        logging.warning('Error al crear el vehiculo : ' + role_name)
+        return None, []
+    
+    print('\n' + role_name + ' creado.')
+
+    ############
+    # SENSORES
+    ############
 
     # Camara RGB
     if sensor_configuration.get('rgb', False):
-        cam_bp = None
-        cam_bp = world.get_blueprint_library().find('sensor.camera.rgb')
-        cam_bp.set_attribute('image_size_x', str(1920))
-        cam_bp.set_attribute('image_size_y', str(1080))
+        cam_bp = blueprint_library.find(RGB_SENSOR)
+
+        # Atributos de camara
+        cam_bp.set_attribute('image_size_x', str(1280))
+        cam_bp.set_attribute('image_size_y', str(720))
         cam_bp.set_attribute('fov', str(105))
+
+        # Posicion de la camara y rotacion
         cam_location = carla.Location(2, 0, 1)
         cam_rotation = carla.Rotation(0, 180, 0)
         cam_transform = carla.Transform(cam_location, cam_rotation)
-        ego_cam = world.spawn_actor(cam_bp, cam_transform, attach_to = role_name,\
+
+        cam = world.spawn_actor(cam_bp, cam_transform, attach_to = role_name,\
                                     attachment_type = carla.AttachmentType.Rigid)
-        ego_cam.listen(lambda image: image.save_to_disk('../recorder/sim_01_dataset/rgb/%.6d.jpg' % image.frame))
-    
+        
+        # Listener: Guardar imagen incluyendo el nombre del vehiculo y el frame
+        cam.listen(lambda image: image.save_to_disk('../recorder/sim_01_dataset/%s/rgb/%.6d.jpg' % role_name % image.frame))
+        sensors.append(cam)
+
     # Detector de colisiones
     if sensor_configuration.get("col", False):
-        col_bp = world.get_blueprint_library().find('sensor.other.collision')
-        col_location = carla.Location(0,0,0)
-        col_rotation = carla.Rotation(0,0,0)
-        col_transform = carla.Transform(col_location, col_rotation)
-        ego_col = world.spawn_actor(col_bp, col_transform, attach_to = role_name,\
+        col_bp = blueprint_library.find(COLLISION_SENSOR)
+
+        col = world.spawn_actor(col_bp, carla.Transform(), attach_to = role_name,\
                                     attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener: Imprimir la colision
         def col_callback(colli):
-            print('Collision detected:\n' + str(colli) + '\n')
-        ego_col.listen(lambda colli: col_callback(colli))
+            print(role_name + ' - Collision detected:\n' + str(colli) + '\n')
+        col.listen(lambda colli: col_callback(colli))
+        sensors.append(cam)
 
     # Invasion de linea
     if sensor_configuration.get("lane", False):
-        lane_bp = world.get_blueprint_library().find('sensor.other.lane_invasion')
-        lane_location = carla.Location(0, 0, 0)
-        lane_rotation = carla.Rotation(0, 0, 0)
-        lane_transform = carla.Transform(lane_location, lane_rotation)
-        ego_lane = world.spawn_actor(lane_bp, lane_transform, attach_to = role_name,\
+        lane_bp = blueprint_library.find(LANE_SENSOR)
+
+        lane = world.spawn_actor(lane_bp, carla.Transform(), attach_to = role_name,\
                                      attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener: Imprimir la invasion de linea
         def lane_callback(lane):
-            print('Lane invasion detected:\n' + str(lane) + '\n')
-        ego_lane.listen(lambda lane: lane_callback(lane))
+            print(role_name + ' - Lane invasion detected:\n' + str(lane) + '\n')
+        lane.listen(lambda lane: lane_callback(lane))
+        sensors.append(lane)
 
     # Obstaculo
-    obs_bp = world.get_blueprint_library().find('sensor.other.obstacle')
-    obs_bp.set_attribute('only_dinamics', str(True))
-    obs_location = carla.Location(0, 0, 0)
-    obs_rotation = carla.Rotation(0, 0, 0)
-    obs_transform = carla.Transform(obs_location, obs_rotation)
-    ego_obs = world.spawn_actor(obs_bp, obs_transform, attach_to = role_name,\
-                                attachment_type = carla.AttachmentType.Rigid)
-    def obs_callback(obs):
-        print('Obstacle detected:\n' + str(obs) + '\n')
-    ego_obs.listen(lambda obs: obs_callback(obs))
+    if sensor_configuration.get('obstacle', False):
+        obs_bp = blueprint_library.find(OBSTACLE_SENSOR)
+        obs_bp.set_attribute('only_dinamics', str(True))
+
+        obs = world.spawn_actor(obs_bp, carla.Transform(), attach_to = role_name,\
+                                    attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener: Imprimir la deteccion de obstaculo
+        def obs_callback(obs):
+            print(role_name + ' - Obstacle detected:\n' + str(obs) + '\n')
+        obs.listen(lambda obs: obs_callback(obs))
+        sensors.append(obs)
 
     # GNSS
-    gnss_bp = world.get_blueprint_library().find('sensor.other.gnss')
-    gnss_location = carla.Location(0, 0, 0)
-    gnss_rotation = carla.Rotation(0, 0, 0)
-    gnss_transform = carla.Transform(gnss_location, gnss_rotation)
-    gnss_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
-    ego_gnss = world.spawn_actor(gnss_bp, gnss_transform, attach_to = role_name,\
-                                 attachment_type = carla.AttachmentType.Rigid)
-    def gnss_callback(gnss):
-        print('GNSS measure: ' + str(gnss) + '\n')
-    ego_gnss.listen(lambda gnss: gnss_callback(gnss))
-    
-    # IMU
-    imu_bp = world.get_blueprint_library().find('sensor.other.imu')
-    imu_location = carla.Location(0, 0, 0)
-    imu_rotation = carla.Rotation(0, 0, 0)
-    imu_transform = carla.Transform(imu_location, imu_rotation)
-    imu_bp.set_attribuyte('sensor_tick', str(SENSOR_TICK))
-    ego_imu = world.spawn_actor(imu_bp, imu_transform, attach_to = role_name,\
-                                attachment_type = carla.AttachmentType.Rigid)
-    def imu_callback(imu):
-        print('IMU measure:\n' + str(imu) + '\n')
-    ego_imu.listen(lambda imu: imu_callback(imu))
+    if sensor_configuration.get('gnss', False):
+        gnss_bp = blueprint_library.find(GNSS_SENSOR)
+        gnss_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
 
-    # Habilitar piloto automatico
-    ego_vehicle.set_autopilot(True)
+        gnss = world.spawn_actor(gnss_bp, carla.Transform(), attach_to = role_name,\
+                                    attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener: Imprimir medidas GNSS
+        def gnss_callback(gnss):
+            print(role_name + ' - GNSS measure: ' + str(gnss) + '\n')
+        gnss.listen(lambda gnss: gnss_callback(gnss))
+        sensors.append(gnss)
+        
+    # IMU
+    if sensor_configuration.get('imu', False):
+        imu_bp = blueprint_library.find(IMU_SENSOR)
+        imu_bp.set_attribuyte('sensor_tick', str(SENSOR_TICK))
+
+        imu = world.spawn_actor(imu_bp, carla.Transform(), attach_to = role_name,\
+                                    attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener: Imprimir medidas IMU
+        def imu_callback(imu):
+            print(role_name + ' - IMU measure:\n' + str(imu) + '\n')
+        imu.listen(lambda imu: imu_callback(imu))
+        sensors.append(imu)
+
+    return vehicle, sensors
 
 
 def main():
@@ -147,15 +200,21 @@ def main():
     # Si no se recibe respuesta, las operaciones contra el servidor fallan.
     client.set_timeout(10.0)
 
+    vehicles = []
+    ego_vehicle = None
+
     try:
     
         world = client.get_world()
         
+        client.start_recorder('../recorder/recording01.log')
+
         # Configuracion de sensores
         config_ego_1 = {
             'rgb': True,
             'col': True,
             'lane': True,
+            'obstacle': True,
             'gnss': True,
             'imu': True
         }
@@ -164,46 +223,66 @@ def main():
             'rgb': False,
             'col': False,
             'lane': False,
+            'obstacle': False,
             'gnss': True,
             'imu': True
         }
 
-        # Blueprint-ID, ROLE_NAME, SPAWN_POINT_INDEX
+        # Blueprint-ID, ROLE_NAME, SPAWN_POINT_INDEX, SENSORES
         vehicle_configs = [
             ('vehicle.tesla.model3', 'ego_1', 0, config_ego_1),
             ('vehicle.audi.a2', 'ego_2', 1, config_ego_2)
         ]
 
+        # Obtencion y mezcla de puntos de spawn
         spawn_points = world.get_map().get_spawn_points()
         random.shuffle(spawn_points)
 
-        # Grabacion de simulacion
-        client.start_recorder('../recorder/recording01.log')
-
         # Crear EGO_VEHICLES
-        for i in range(NUM_EGO_VEHICLES):
-            # Obtener la plantilla un vehiculo y establecer rol y color
-            ego_bp = world.get_blueprint_library().find(VEHICLE_MODEL)
-            spawn_vehicle_with_attached_sensors(world, ego_bp, ROLE_NAME + i, spawn_point)
+        for blueprint_id, role_name, spawn_index, sensor_config in vehicle_configs:
+            if spawn_index < len(spawn_points):
+                spawn_point = spawn_points[spawn_index]
             
-            print('\nRole for vehicle ' + i + ' is set.')
-            ego_color = random.choice(ego_bp.get_attribute('color').recommended_values)
-            ego_bp.set_attribute('color', ego_color)
-            print('\NColor for vehicle ' + i + ' is set.')
+                vehicle, sensors = spawn_vehicle_with_attached_sensors(
+                    world,
+                    blueprint_id,
+                    role_name,
+                    spawn_point,
+                    sensor_config
+                )
 
-            spawn_points = world.get_map().get_spawn_points()
-            number_of_spawn_points = len(spawn_points)
+                if vehicle:
+                    vehicles.append(vehicle)
+                    vehicles.extend(sensors)
 
-            if number_of_spawn_points > 0: # Si existen puntos disponibles de spawn
-                random.shuffle(spawn_points)
-                ego_transform = spawn_points[0]
-                ego_vehicle = world.spawn_actor(ego_bp, ego_transform)
-                print('\nVehicle ' + i ' is spawned.')
             else:
-                logging.warning('Could not found any spawn points.')
+                logging.warning('No hay suficientes puntos de spawn para ' + role_name)
 
+        # Habilitar piloto automatico
+        for vehicle in vehicles:
+            vehicle.set_autopilot(True)
+        
+        while True:
+            world.wait_for_tick()
+    
+    finally:
+        print('\nDeteniendo grabacion...')
+        client.stop_recorder()
 
+        # Limpieza de vehiculos del simulador
+        if vehicles:
+            client.apply_batch([carla.command.DestroyActor(x) for x in vehicles])
+            print('\nVehiculos eliminados.')
+        else:
+            print('\nNo hay vehiculos por eliminar.')
 
-
-
-
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        sys.exit()
+    except Exception as e:
+        print('\nError inesperado: ' + e)
+    finally:
+        print('\nSimulacion 01 de CARLA terminada.')
+        
