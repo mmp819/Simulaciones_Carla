@@ -1,4 +1,3 @@
-
 """
 Simulacion 01 utilizando dos ego vehicles en el mapa 10 de Carla.
 Se conducen de forma automática.
@@ -25,7 +24,6 @@ import random
 import sys
 
 NUM_EGO_VEHICLES = 2
-ROLE_NAME = 'ego_'
 SENSOR_TICK = 5.0
 
 # Blueprints IDs
@@ -91,31 +89,31 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
         cam_rotation = carla.Rotation(0, 180, 0)
         cam_transform = carla.Transform(cam_location, cam_rotation)
 
-        cam = world.spawn_actor(cam_bp, cam_transform, attach_to = role_name,\
+        cam = world.spawn_actor(cam_bp, cam_transform, attach_to = vehicle,\
                                     attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Guardar imagen incluyendo el nombre del vehiculo y el frame
-        cam.listen(lambda image: image.save_to_disk('../recorder/sim_01_dataset/%s/rgb/%.6d.jpg' % role_name % image.frame))
+        cam.listen(lambda image: image.save_to_disk('../recorder/sim_01_dataset/%s/rgb/%.6d.jpg' % (role_name, image.frame)))
         sensors.append(cam)
 
     # Detector de colisiones
     if sensor_configuration.get("col", False):
         col_bp = blueprint_library.find(COLLISION_SENSOR)
 
-        col = world.spawn_actor(col_bp, carla.Transform(), attach_to = role_name,\
+        col = world.spawn_actor(col_bp, carla.Transform(), attach_to = vehicle,\
                                     attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Imprimir la colision
         def col_callback(colli):
             print(role_name + ' - Collision detected:\n' + str(colli) + '\n')
         col.listen(lambda colli: col_callback(colli))
-        sensors.append(cam)
+        sensors.append(col)
 
     # Invasion de linea
     if sensor_configuration.get("lane", False):
         lane_bp = blueprint_library.find(LANE_SENSOR)
 
-        lane = world.spawn_actor(lane_bp, carla.Transform(), attach_to = role_name,\
+        lane = world.spawn_actor(lane_bp, carla.Transform(), attach_to = vehicle,\
                                      attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Imprimir la invasion de linea
@@ -129,7 +127,7 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
         obs_bp = blueprint_library.find(OBSTACLE_SENSOR)
         obs_bp.set_attribute('only_dinamics', str(True))
 
-        obs = world.spawn_actor(obs_bp, carla.Transform(), attach_to = role_name,\
+        obs = world.spawn_actor(obs_bp, carla.Transform(), attach_to = vehicle,\
                                     attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Imprimir la deteccion de obstaculo
@@ -143,7 +141,7 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
         gnss_bp = blueprint_library.find(GNSS_SENSOR)
         gnss_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
 
-        gnss = world.spawn_actor(gnss_bp, carla.Transform(), attach_to = role_name,\
+        gnss = world.spawn_actor(gnss_bp, carla.Transform(), attach_to = vehicle,\
                                     attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Imprimir medidas GNSS
@@ -155,9 +153,9 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
     # IMU
     if sensor_configuration.get('imu', False):
         imu_bp = blueprint_library.find(IMU_SENSOR)
-        imu_bp.set_attribuyte('sensor_tick', str(SENSOR_TICK))
+        imu_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
 
-        imu = world.spawn_actor(imu_bp, carla.Transform(), attach_to = role_name,\
+        imu = world.spawn_actor(imu_bp, carla.Transform(), attach_to = vehicle,\
                                     attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: Imprimir medidas IMU
@@ -282,7 +280,7 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         sys.exit()
     except Exception as e:
-        print('\nError inesperado: ' + e)
+        print('\nError inesperado: ' + str(e))
     finally:
         print('\nSimulacion 01 de CARLA terminada.')
         
