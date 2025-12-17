@@ -10,10 +10,11 @@ Información recogida:
 - Obstaculos detectados
 - GNSS
 - IMU
-No probado.
+- Radar
+
 
 @author Mario Martin <martinperezm@unican.es>, CARLA Simulator Tutorial
-@version 1.0.12-25
+@version 2.0.12-25
 """
 
 import carla
