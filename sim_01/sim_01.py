@@ -1,7 +1,7 @@
 """
 Simulacion 01 utilizando dos ego vehicles en el mapa 10 de Carla.
 Se conducen de forma automática.
-La información se recoge en un fichero CSV.
+La información se recoge en un fichero JSON.
 
 @author Mario Martin <martinperezm@unican.es>, Carla Simulator
 @version 1.0.1-26
@@ -12,30 +12,30 @@ import carla
 import argparse
 import logging
 import random
-import sys
-
 import json
 import os
 import queue
 import time 
 from datetime import datetime
 
-# Attributes
+# Atributos de imagen
 IMAGE_SIZE_X = 1280
 IMAGE_SIZE_Y = 720
 IMAGE_FOV = 105
 
+# Atributos de camara RGB
 RGB_LOCATION_X = 2
 RGB_LOCATION_Y = 0
 RGB_LOCATION_Z = 1
-
 RGB_ROTATION_X = 0
 RGB_ROTATION_Y = 180
 RGB_ROTATION_Z = 0
 
+# TICKS
 SENSOR_TICK = 0.5
+WORLD_TICK = 0.05
 
-# Blueprints IDs
+# BLUEPRINTS
 RGB_SENSOR = 'sensor.camera.rgb'
 COLLISION_SENSOR = 'sensor.other.collision'
 LANE_SENSOR = 'sensor.other.lane_invasion'
@@ -43,16 +43,19 @@ OBSTACLE_SENSOR = 'sensor.other.obstacle'
 GNSS_SENSOR = 'sensor.other.gnss'
 IMU_SENSOR = 'sensor.other.imu'
 
-# Directorios
+# DIRECTORIOS
 OUTPUT_DIR = "../recorder/sim_01_datamodel"
 IMG_SUBDIR = "rgb_images"
 
 def ask_config(role_name):
     """
-    Docstring for ask_config
+    Solicita al usuario los ajustes que deben aplicarse a los sensores de un
+    vehiculo de la simulacion.
+    Retorna la configuracion de dichos sensores.
     
-    :param role_name: Description
+    :param role_name: Nombre asignado a un ego_vehicle.
     """
+
     print(f"\n--- Configurando sensores para:  {role_name} ---")
     print("Pulsar [S/s] o [Y/y] para activar. Otra tecla para desactivar.")
 
@@ -66,16 +69,17 @@ def ask_config(role_name):
 
 def create_camera(world, bp_lib, size_x, size_y, fov, location, rotation, vehicle):
     """
-    Docstring for create_camera
+    Crea una camara RGB y la asigna a un vehiculo determinado.
+    Retorna la camara creada.
     
-    :param world: Description
-    :param bp_lib: Description
-    :param size_x: Description
-    :param size_y: Description
-    :param fov: Description
-    :param location: Description
-    :param rotation: Description
-    :param vehicle: Description
+    :param world: Entorno de simulacion.
+    :param bp_lib: Libreria de blueprints.
+    :param size_x: Tamaño horizontal de la imagen.
+    :param size_y: Tamaño vertical de la imagen.
+    :param fov: FOV de la imagen.
+    :param location: Ubicacion relativa de la camara con respecto al vehiculo.
+    :param rotation: Desplazamiento rotacional de la camara.
+    :param vehicle: Vehiculo al que fijar la camara.
     """
     cam_bp = bp_lib.find(RGB_SENSOR)
 
@@ -93,15 +97,16 @@ def create_camera(world, bp_lib, size_x, size_y, fov, location, rotation, vehicl
     
     return cam
 
-def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point, sensor_configuration):
+def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point, sensor_configuration, data_queue):
     """
-    Docstring for spawn_vehicle_with_attached_sensors
+    Crea un vehiculo junto con sus sensores y lo publica en el entorno de la simulacion.
     
-    :param world: Description
-    :param ego_bp_id: Description
-    :param role_name: Description
-    :param spawn_point: Description
-    :param sensor_configuration: Description
+    :param world: Entorno de simulacion.
+    :param ego_bp_id: ID del blueprint asociado al modelo de vehiculo.
+    :param role_name: Nombre identificativo para el ego_vehicle a crear.
+    :param spawn_point: Punto de spawn dentro del mapa existente.
+    :param sensor_configuration: Configuracion de sensores a aplicar.
+    :param data_queue: Cola para publicacion de datos del JSON.
     """
     sensors = []
     blueprint_library = world.get_blueprint_library()
@@ -258,9 +263,14 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
                                 attachment_type = carla.AttachmentType.Rigid)
         
         # Listener
-        def imu_callback(imu):
-            TODO
-        imu.listen(lambda imu: imu_callback(imu))
+        def imu_callback(event):
+            push_data("imu", {
+                "frame": event.frame,
+                "accelerometer": {"x": event.accelerometer.x, "y": event.accelerometer.y, "z": event.accelerometer.z},
+                "gyroscope": {"x": event.gyroscope.x, "y": event.gyroscope.y, "z": event.gyroscope.z},
+                "compass": event.compass
+            })
+        imu.listen(lambda event: imu_callback(event))
         sensors.append(imu)
     
     return vehicle, sensors
@@ -275,14 +285,14 @@ def main():
     argparser.add_argument(
         '--host',
         metavar = 'H',
-        default = '127.0.0.1'
+        default = '127.0.0.1',
         help = 'IP of the host server (default: 127.0.0.1)'
     )
     # Puerto del servidor que ejecuta CARLA
     argparser.add_argument(
         '-p', '--port',
         metavar = 'P',
-        default = 2000
+        default = 2000,
         type = int,
         help = 'TCP port to listen to (default: 2000)'
     )
@@ -293,45 +303,38 @@ def main():
     # Formato de mensajes de logging (Ej. INFO: "Loreipsum")
     logging.basicConfig(format = '%(levelname)s: %(message)s', level = logging.INFO)
 
+    # Preparacion de directorios de guardado
+    if not os.path.exists(os.path.join(OUTPUT_DIR, IMG_SUBDIR)):
+        os.makedirs(os.path.join(OUTPUT_DIR, IMG_SUBDIR))
+
+#   # Cola de recepcion de datos de los sensores
+    sensor_queue = queue.Queue()
+
     client = carla.Client(args.host, args.port)
+
     # Si no se recibe respuesta, las operaciones fallan
     client.set_timeout(10.0)
 
     vehicles = []
+    base_configs = [
+            {'vehicle.tesla.model3', 'ego_1', 0},
+            {'vehicle.audi.a2', 'ego_2', 1}]
 
     try:
         world = client.get_world()
 
-        client.start_recorder('../recorder/sim_01_datamodel/recording01.log')
+        # Ajustar la configuracion de los vehiculos
+        spawn_data = []
+        for blueprint_id, role_name, vehicle_id in base_configs:
+            config = ask_config(role_name)
+            spawn_data.append((blueprint_id, role_name, vehicle_id, config))
 
-        config_ego_1 = {
-            'rgb': True,
-            'col': True,
-            'lane': True,
-            'obstacle': True,
-            'gnss': True,
-            'imu': True
-        }
-
-        config_ego_2 = {
-            'rgb': False,
-            'col': False,
-            'lane': False,
-            'obstacle': False,
-            'gnss': True,
-            'imu': True
-        }
-        
-        vehicle_configs = [
-            {'vehicle.tesla.model3', 'ego_1', 0, config_ego_1},
-            {'vehicle.audi.a2', 'ego_2', 1, config_ego_2}
-        ]
-
+        # Obtener puntos de spawn aleatorios
         spawn_points = world.get_map().get_spawn_points()
         random.shuffle(spawn_points)
 
         # Crear vehiculos
-        for blueprint_id, role_name, spawn_index, sensor_config in vehicle_configs:
+        for blueprint_id, role_name, spawn_index, sensor_config in spawn_data:
             if spawn_index < len(spawn_points):
                 spawn_point = spawn_points[spawn_index]
                 vehicle, sensors = spawn_vehicle_with_attached_sensors(
@@ -339,39 +342,54 @@ def main():
                     blueprint_id,
                     role_name,
                     spawn_point,
-                    sensor_config
+                    sensor_config,
+                    sensor_queue
                 )
 
                 if vehicle:
                     vehicles.append(vehicle)
                     vehicles.extend(sensors)
+                    vehicle.set_autopilot(True)
 
             else:
-                logging.warning('No hay suficientes puntos de spawn para ' + role_name)
+                logging.warning(f"No hay suficientes puntos de spawn para {role_name}")
         
-        for vehicle in vehicles:
-            vehicle.set_autopilot(True)
+        print("\nSimulacion iniciada... Pulsar Ctrl+C para finalizar y guardar.")
         
+        # Lista de datos acumulados para fichero JSON
+        simulation_data_log = []
+
         while True:
-            world.wait_for_tick()
+            world.tick()
+
+            while not sensor_queue.empty():
+                try:
+                    event = sensor_queue.get_nowait()
+                    simulation_data_log.append(event)
+                except queue.Empty:
+                    break
+            
+            time.sleep(WORLD_TICK)
+
     
     finally:
-        print('\nDeteniendo grabacion...')
-        client.stop_recorder()
+        print('\nDeteniendo grabacion y limpiando...')
+
+        # Detener la simulacion y guardar datos obtenidos
+        json_path = os.path.join(OUTPUT_DIR, 'simulation_log.json')
+        try:
+            with open(json_path, 'w') as f:
+                json.dump(simulation_data_log, f, indent = 4)
+            print(f"Log guardado en: {json_path}")
+        except Exception as e:
+            print(f"Error al guardar log: {e}")
 
         # Limpieza de vehiculos del simulador
         if vehicles:
             client.apply_batch([carla.command.DestroyActor(v) for v in vehicles])
-            print('\nVehiculos eliminados.')
+            print('\nVehiculos y sensores eliminados.')
         else:
             print('\nNo hay vehiculos por eliminar.')
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        sys.exit()
-    except Exception as e:
-        print('\nError inesperado: ' + str(e))
-    finally:
-        print('\nSimulacion 01 de CARLA terminada.')
+    main()
