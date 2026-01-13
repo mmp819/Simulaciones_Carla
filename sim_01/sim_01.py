@@ -14,6 +14,12 @@ import logging
 import random
 import sys
 
+import json
+import os
+import queue
+import time 
+from datetime import datetime
+
 # Attributes
 IMAGE_SIZE_X = 1280
 IMAGE_SIZE_Y = 720
@@ -27,7 +33,7 @@ RGB_ROTATION_X = 0
 RGB_ROTATION_Y = 180
 RGB_ROTATION_Z = 0
 
-SENSOR_TICK = 5.0
+SENSOR_TICK = 0.5
 
 # Blueprints IDs
 RGB_SENSOR = 'sensor.camera.rgb'
@@ -36,6 +42,27 @@ LANE_SENSOR = 'sensor.other.lane_invasion'
 OBSTACLE_SENSOR = 'sensor.other.obstacle'
 GNSS_SENSOR = 'sensor.other.gnss'
 IMU_SENSOR = 'sensor.other.imu'
+
+# Directorios
+OUTPUT_DIR = "../recorder/sim_01_datamodel"
+IMG_SUBDIR = "rgb_images"
+
+def ask_config(role_name):
+    """
+    Docstring for ask_config
+    
+    :param role_name: Description
+    """
+    print(f"\n--- Configurando sensores para:  {role_name} ---")
+    print("Pulsar [S/s] o [Y/y] para activar. Otra tecla para desactivar.")
+
+    config = {}
+    sensors = ['rgb', 'collision', 'lane', 'obstacle', 'gnss', 'imu']
+
+    for s in sensors:
+        response = input(f"¿Activar {s.upper()}? > ").lower()
+        config[s] = response in ['s', 'y']
+    return config
 
 def create_camera(world, bp_lib, size_x, size_y, fov, location, rotation, vehicle):
     """
@@ -104,20 +131,49 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
     # SENSORES #
     ############
 
-    # Camara RGB
-    location = carla.Location(RGB_LOCATION_X, RGB_LOCATION_Y, RGB_LOCATION_Z)
-    rotation = carla.Rotation(RGB_ROTATION_X, RGB_ROTATION_Y, RGB_ROTATION_Z)
+    def push_data(sensor_type, data_payload):
+        """
+        Docstring for push_data
+        
+        :param sensor_type: Description
+        :param data_payload: Description
+        """
+        timestamp = datetime.time().isoformat()
+        entry = {
+            "role": role_name,
+            "sensor": sensor_type,
+            "timestamp": timestamp,
+            "data": data_payload
+        }
+        data_queue.put(entry)
 
+    # 1. Camara RGB
     if sensor_configuration.get('rgb', False):
+        location = carla.Location(RGB_LOCATION_X, RGB_LOCATION_Y, RGB_LOCATION_Z)
+        rotation = carla.Rotation(RGB_ROTATION_X, RGB_ROTATION_Y, RGB_ROTATION_Z)
         cam = create_camera(world, blueprint_library, IMAGE_SIZE_X, IMAGE_SIZE_Y, IMAGE_FOV, \
                             location, rotation, vehicle)
         
-    # Listener: Guardar imagen incluyendo el nombre del vehiculo y el frame
-    cam.listen(lambda image: image.save_to_disk('../recorder/sim_01_datamodel/%s/rgb/%.6d.jpg' \
-                                                %(role_name, image.frame)))
-    sensors.append(cam)
+        def cam_callback(image):
+            filename = f"{role_name}_{image.frame:06d}.jpg"
+            abs_path = os.path.join(OUTPUT_DIR, IMG_SUBDIR, filename)
 
-    # Detector de colisiones
+            rel_path = os.path.join(IMG_SUBDIR, filename)
+
+            image.save_to_disk(abs_path)
+
+            push_data("rgb", {
+                "frame": image.frame,
+                "relative_path": rel_path,
+                "width": image.width,
+                "height": image.height
+            })
+        
+        # Listener: Guardar imagen incluyendo el nombre del vehiculo y el frame
+        cam.listen(lambda image: cam_callback(image))
+        sensors.append(cam)
+
+    # 2. Detector de colisiones
     if sensor_configuration.get('col', False):
         col_bp = blueprint_library.find(COLLISION_SENSOR)
 
@@ -125,13 +181,21 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
                                 attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: 
-        def col_callback(col):
-            TODO
+        def col_callback(event):
+            other_actor = event.other_actor.type_id
+            impulse = event.normal_impulse
+            intensity = (impulse.x**2 + impulse.y**2 + impulse.z**2)**0.5
 
-        col.listen(lambda col: col_callback(col))
+            push_data("collision", {
+                "frame": event.frame,
+                "other_actor": other_actor,
+                "intensity": intensity
+            })
+
+        col.listen(lambda event: col_callback(event))
         sensors.append(col)
 
-    # Detector de invasion de lineas
+    # 3. Detector de invasion de lineas
     if sensor_configuration.get('lane', False):
         lane_bp = blueprint_library.find(LANE_SENSOR)
 
@@ -139,12 +203,16 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
                                  attachment_type = carla.AttachmentType.Rigid)
         
         # Listener: 
-        def lane_callback(lane):
-            TODO
-        lane.listen(lambda lane: lane_callback(lane))
+        def lane_callback(event):
+            text_markings = [str(x.type) for x in event.crossed_lane_markings]
+            push_data("lane_invasion", {
+                "frame": event.frame,
+                "crossed_markings": text_markings
+            })
+        lane.listen(lambda event: lane_callback(event))
         sensors.append(lane)
 
-    # Obstaculo
+    # 4. Obstaculo
     if sensor_configuration.get('obstacle', False):
         obs_bp = blueprint_library.find(OBSTACLE_SENSOR)
         obs_bp.set_attribute('only_dinamics', str(True))
@@ -153,12 +221,16 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
                                 attachment_type = carla.AttachmentType.Rigid)
         
         # Listener:
-        def obs_callback(obs):
-            TODO
-        obs.listen(lambda obs: obs_callback(obs))
+        def obs_callback(event):
+            push_data("obstacle", {
+                "frame": event.frame,
+                "distance": event.distance,
+                "other_actor": event.other_actor.type_id
+            })
+        obs.listen(lambda event: obs_callback(event))
         sensors.append(obs)
 
-    # GNSS
+    # 5. GNSS
     if sensor_configuration.get('gnss', False):
         gnss_bp = blueprint_library.find(GNSS_SENSOR)
         gnss_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
@@ -167,12 +239,17 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
                                  attachment_type = carla.AttachmentType.Rigid)
                                  
         # Listener:
-        def gnss_callback(gnss):
-            TODO
-        gnss.listen(lambda gnss: gnss_callback(gnss))
+        def gnss_callback(event):
+            push_data("gnss", {
+                "frame": event.frame,
+                "latitude": event.latitude,
+                "longitude": event.longitude,
+                "altitude": event.altitude
+            })
+        gnss.listen(lambda event: gnss_callback(event))
         sensors.append(gnss)
 
-    # IMU
+    # 6. IMU
     if sensor_configuration.get('imu', False):
         imu_bp = blueprint_library.find(IMU_SENSOR)
         imu_bp.set_attribute('sensor_tick', str(SENSOR_TICK))
