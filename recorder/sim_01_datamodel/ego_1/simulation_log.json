@@ -1,0 +1,790 @@
+[
+    {
+        "frame": 97431,
+        "timestamp": "2026-01-18T16:00:11.898048",
+        "sensors": {
+            "gnss": {
+                "frame": 97431,
+                "latitude": 0.0002547161715244273,
+                "longitude": 0.0005158720272810351,
+                "altitude": 0.48239994049072266
+            },
+            "imu": {
+                "frame": 97431,
+                "accelerometer": {
+                    "x": 6.756998237436863e-36,
+                    "y": 3.3130046257318815e-36,
+                    "z": 9.8100004196167
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.5735749006271362
+            },
+            "rgb": {
+                "frame": 97429,
+                "relative_path": "rgb_images/097429.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97440,
+        "timestamp": "2026-01-18T16:00:12.264306",
+        "sensors": {
+            "rgb": {
+                "frame": 97440,
+                "relative_path": "rgb_images/097440.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "gnss": {
+                "frame": 97442,
+                "latitude": 0.0002547163257921708,
+                "longitude": 0.0005159271180071119,
+                "altitude": -0.022479666396975517
+            },
+            "imu": {
+                "frame": 97442,
+                "accelerometer": {
+                    "x": -22990.41015625,
+                    "y": -11273.6845703125,
+                    "z": -382.0421447753906
+                },
+                "gyroscope": {
+                    "x": -1.30239257600806e-07,
+                    "y": -0.0066736177541315556,
+                    "z": -0.00011014963092748076
+                },
+                "compass": 1.573569893836975
+            }
+        }
+    },
+    {
+        "frame": 97450,
+        "timestamp": "2026-01-18T16:00:12.571324",
+        "sensors": {
+            "rgb": {
+                "frame": 97450,
+                "relative_path": "rgb_images/097450.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "imu": {
+                "frame": 97452,
+                "accelerometer": {
+                    "x": 592.4727783203125,
+                    "y": -0.2744293212890625,
+                    "z": 220.20042419433594
+                },
+                "gyroscope": {
+                    "x": -0.00011204819020349532,
+                    "y": 0.00128633389249444,
+                    "z": -3.018554025402409e-06
+                },
+                "compass": 1.573792815208435
+            },
+            "gnss": {
+                "frame": 97452,
+                "latitude": 0.0002547500418644952,
+                "longitude": 0.0005292858820237159,
+                "altitude": 0.0008048248128034174
+            }
+        }
+    },
+    {
+        "frame": 97460,
+        "timestamp": "2026-01-18T16:00:12.877937",
+        "sensors": {
+            "rgb": {
+                "frame": 97460,
+                "relative_path": "rgb_images/097460.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "imu": {
+                "frame": 97462,
+                "accelerometer": {
+                    "x": 513.593505859375,
+                    "y": 0.25733739137649536,
+                    "z": 0.5932199358940125
+                },
+                "gyroscope": {
+                    "x": -8.56368296808796e-06,
+                    "y": 0.002526015043258667,
+                    "z": 2.0016270241285383e-07
+                },
+                "compass": 1.5737732648849487
+            },
+            "gnss": {
+                "frame": 97462,
+                "latitude": 0.00025482390183191806,
+                "longitude": 0.0005541833591930386,
+                "altitude": 0.0018582915654405951
+            }
+        }
+    },
+    {
+        "frame": 97470,
+        "timestamp": "2026-01-18T16:00:13.182203",
+        "sensors": {
+            "rgb": {
+                "frame": 97470,
+                "relative_path": "rgb_images/097470.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "imu": {
+                "frame": 97472,
+                "accelerometer": {
+                    "x": 12.617108345031738,
+                    "y": -0.11867684870958328,
+                    "z": 9.5173921585083
+                },
+                "gyroscope": {
+                    "x": 4.6778282580817176e-07,
+                    "y": 0.010734280571341515,
+                    "z": 5.045312718721107e-06
+                },
+                "compass": 1.5736632347106934
+            },
+            "gnss": {
+                "frame": 97472,
+                "latitude": 0.000254895910586331,
+                "longitude": 0.0005793644490422997,
+                "altitude": 0.00216331472620368
+            }
+        }
+    },
+    {
+        "frame": 97480,
+        "timestamp": "2026-01-18T16:00:13.479910",
+        "sensors": {
+            "rgb": {
+                "frame": 97480,
+                "relative_path": "rgb_images/097480.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "gnss": {
+                "frame": 97482,
+                "latitude": 0.00025492726121993274,
+                "longitude": 0.0005903027178469818,
+                "altitude": 0.0017435455229133368
+            },
+            "imu": {
+                "frame": 97482,
+                "accelerometer": {
+                    "x": -633.9468383789062,
+                    "y": 0.007478727493435144,
+                    "z": 9.73425579071045
+                },
+                "gyroscope": {
+                    "x": -1.47236917769078e-07,
+                    "y": -0.0055542984046041965,
+                    "z": -5.340983534551924e-06
+                },
+                "compass": 1.5736632347106934
+            }
+        }
+    },
+    {
+        "frame": 97490,
+        "timestamp": "2026-01-18T16:00:13.774073",
+        "sensors": {
+            "rgb": {
+                "frame": 97490,
+                "relative_path": "rgb_images/097490.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "gnss": {
+                "frame": 97492,
+                "latitude": 0.0002549687592428048,
+                "longitude": 0.0006058291150991257,
+                "altitude": 0.00197772984392941
+            },
+            "imu": {
+                "frame": 97492,
+                "accelerometer": {
+                    "x": 204.2124786376953,
+                    "y": -0.10767020285129547,
+                    "z": 10.13216781616211
+                },
+                "gyroscope": {
+                    "x": -2.295199465152109e-06,
+                    "y": -0.0005265068612061441,
+                    "z": 2.879982048398233e-07
+                },
+                "compass": 1.5735394954681396
+            }
+        }
+    },
+    {
+        "frame": 97501,
+        "timestamp": "2026-01-18T16:00:14.000005",
+        "sensors": {
+            "gnss": {
+                "frame": 97501,
+                "latitude": 0.0002550087145882468,
+                "longitude": 0.0006204067314334442,
+                "altitude": 0.0018595122965052724
+            },
+            "imu": {
+                "frame": 97501,
+                "accelerometer": {
+                    "x": -42.226985931396484,
+                    "y": 0.0470714345574379,
+                    "z": 9.671405792236328
+                },
+                "gyroscope": {
+                    "x": -7.662194434487901e-07,
+                    "y": 0.004036044701933861,
+                    "z": 3.407882331885048e-06
+                },
+                "compass": 1.573538899421692
+            },
+            "rgb": {
+                "frame": 97500,
+                "relative_path": "rgb_images/097500.jpg",
+                "width": 1280,
+                "height": 720
+            },
+            "obstacle": {
+                "frame": 97503,
+                "distance": 4.735363006591797,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97504,
+        "timestamp": "2026-01-18T16:00:14.105008",
+        "sensors": {
+            "obstacle": {
+                "frame": 97506,
+                "distance": 4.2968220710754395,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97507,
+        "timestamp": "2026-01-18T16:00:14.198605",
+        "sensors": {
+            "obstacle": {
+                "frame": 97509,
+                "distance": 3.9678115844726562,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97510,
+        "timestamp": "2026-01-18T16:00:14.269810",
+        "sensors": {
+            "obstacle": {
+                "frame": 97512,
+                "distance": 3.943385601043701,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "gnss": {
+                "frame": 97511,
+                "latitude": 0.00025503706557123204,
+                "longitude": 0.0006307380080812941,
+                "altitude": 0.0025985718239098787
+            },
+            "imu": {
+                "frame": 97511,
+                "accelerometer": {
+                    "x": -189.02700805664062,
+                    "y": 0.000477013731142506,
+                    "z": 9.747990608215332
+                },
+                "gyroscope": {
+                    "x": -3.0446889809354616e-07,
+                    "y": -0.0015051825903356075,
+                    "z": -2.617593679588026e-07
+                },
+                "compass": 1.57353675365448
+            },
+            "rgb": {
+                "frame": 97510,
+                "relative_path": "rgb_images/097510.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97513,
+        "timestamp": "2026-01-18T16:00:14.372490",
+        "sensors": {
+            "obstacle": {
+                "frame": 97515,
+                "distance": 3.9333648681640625,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97516,
+        "timestamp": "2026-01-18T16:00:14.475826",
+        "sensors": {
+            "obstacle": {
+                "frame": 97518,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97519,
+        "timestamp": "2026-01-18T16:00:14.532762",
+        "sensors": {
+            "obstacle": {
+                "frame": 97521,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "gnss": {
+                "frame": 97521,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "imu": {
+                "frame": 97521,
+                "accelerometer": {
+                    "x": -459.57989501953125,
+                    "y": -0.0005595519905909896,
+                    "z": 9.113917350769043
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "rgb": {
+                "frame": 97520,
+                "relative_path": "rgb_images/097520.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97522,
+        "timestamp": "2026-01-18T16:00:14.648661",
+        "sensors": {
+            "obstacle": {
+                "frame": 97524,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97525,
+        "timestamp": "2026-01-18T16:00:14.706944",
+        "sensors": {
+            "obstacle": {
+                "frame": 97527,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97528,
+        "timestamp": "2026-01-18T16:00:14.802151",
+        "sensors": {
+            "obstacle": {
+                "frame": 97530,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "rgb": {
+                "frame": 97530,
+                "relative_path": "rgb_images/097530.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97531,
+        "timestamp": "2026-01-18T16:00:14.871479",
+        "sensors": {
+            "gnss": {
+                "frame": 97531,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "imu": {
+                "frame": 97531,
+                "accelerometer": {
+                    "x": -0.2734769880771637,
+                    "y": -0.0004993758630007505,
+                    "z": 10.051498413085938
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "obstacle": {
+                "frame": 97533,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97534,
+        "timestamp": "2026-01-18T16:00:14.975716",
+        "sensors": {
+            "obstacle": {
+                "frame": 97536,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97537,
+        "timestamp": "2026-01-18T16:00:15.065524",
+        "sensors": {
+            "obstacle": {
+                "frame": 97539,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97540,
+        "timestamp": "2026-01-18T16:00:15.136781",
+        "sensors": {
+            "obstacle": {
+                "frame": 97542,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "imu": {
+                "frame": 97541,
+                "accelerometer": {
+                    "x": -0.003391104284673929,
+                    "y": 1.0450244189996738e-05,
+                    "z": 9.809999465942383
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "gnss": {
+                "frame": 97541,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "rgb": {
+                "frame": 97540,
+                "relative_path": "rgb_images/097540.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97543,
+        "timestamp": "2026-01-18T16:00:15.241008",
+        "sensors": {
+            "obstacle": {
+                "frame": 97545,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97546,
+        "timestamp": "2026-01-18T16:00:15.342799",
+        "sensors": {
+            "obstacle": {
+                "frame": 97548,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97549,
+        "timestamp": "2026-01-18T16:00:15.400685",
+        "sensors": {
+            "obstacle": {
+                "frame": 97551,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "gnss": {
+                "frame": 97551,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "imu": {
+                "frame": 97551,
+                "accelerometer": {
+                    "x": -0.003391104284673929,
+                    "y": 1.0450244189996738e-05,
+                    "z": 9.809999465942383
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "rgb": {
+                "frame": 97550,
+                "relative_path": "rgb_images/097550.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97552,
+        "timestamp": "2026-01-18T16:00:15.515319",
+        "sensors": {
+            "obstacle": {
+                "frame": 97554,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97555,
+        "timestamp": "2026-01-18T16:00:15.576042",
+        "sensors": {
+            "obstacle": {
+                "frame": 97557,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97558,
+        "timestamp": "2026-01-18T16:00:15.667617",
+        "sensors": {
+            "obstacle": {
+                "frame": 97560,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "rgb": {
+                "frame": 97560,
+                "relative_path": "rgb_images/097560.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97561,
+        "timestamp": "2026-01-18T16:00:15.737358",
+        "sensors": {
+            "gnss": {
+                "frame": 97561,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "obstacle": {
+                "frame": 97563,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "imu": {
+                "frame": 97561,
+                "accelerometer": {
+                    "x": -0.003391104284673929,
+                    "y": 1.0450244189996738e-05,
+                    "z": 9.809999465942383
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            }
+        }
+    },
+    {
+        "frame": 97564,
+        "timestamp": "2026-01-18T16:00:15.840138",
+        "sensors": {
+            "obstacle": {
+                "frame": 97566,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97567,
+        "timestamp": "2026-01-18T16:00:15.926677",
+        "sensors": {
+            "obstacle": {
+                "frame": 97569,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97570,
+        "timestamp": "2026-01-18T16:00:15.998774",
+        "sensors": {
+            "obstacle": {
+                "frame": 97572,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "gnss": {
+                "frame": 97571,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "imu": {
+                "frame": 97571,
+                "accelerometer": {
+                    "x": -0.003391104284673929,
+                    "y": 1.0450244189996738e-05,
+                    "z": 9.809999465942383
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "rgb": {
+                "frame": 97570,
+                "relative_path": "rgb_images/097570.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97573,
+        "timestamp": "2026-01-18T16:00:16.102795",
+        "sensors": {
+            "obstacle": {
+                "frame": 97575,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97576,
+        "timestamp": "2026-01-18T16:00:16.205529",
+        "sensors": {
+            "obstacle": {
+                "frame": 97578,
+                "distance": 3.928584337234497,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97579,
+        "timestamp": "2026-01-18T16:00:16.262037",
+        "sensors": {
+            "obstacle": {
+                "frame": 97581,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            },
+            "gnss": {
+                "frame": 97581,
+                "latitude": 0.00025503708271209244,
+                "longitude": 0.0006307441102276796,
+                "altitude": 0.0019945907406508923
+            },
+            "imu": {
+                "frame": 97581,
+                "accelerometer": {
+                    "x": -0.003391104284673929,
+                    "y": 1.0450244189996738e-05,
+                    "z": 9.809999465942383
+                },
+                "gyroscope": {
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": 0.0
+                },
+                "compass": 1.57353675365448
+            },
+            "rgb": {
+                "frame": 97580,
+                "relative_path": "rgb_images/097580.jpg",
+                "width": 1280,
+                "height": 720
+            }
+        }
+    },
+    {
+        "frame": 97582,
+        "timestamp": "2026-01-18T16:00:16.379660",
+        "sensors": {
+            "obstacle": {
+                "frame": 97584,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97585,
+        "timestamp": "2026-01-18T16:00:16.438571",
+        "sensors": {
+            "obstacle": {
+                "frame": 97587,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    },
+    {
+        "frame": 97588,
+        "timestamp": "2026-01-18T16:00:16.529858",
+        "sensors": {
+            "obstacle": {
+                "frame": 97589,
+                "distance": 3.928584575653076,
+                "other_actor": "vehicle.lincoln.mkz_2017"
+            }
+        }
+    }
+]
