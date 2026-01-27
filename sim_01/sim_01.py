@@ -31,22 +31,37 @@ RGB_ROTATION_X = 0
 RGB_ROTATION_Y = 0
 RGB_ROTATION_Z = 0
 
+# Atributos de LiDAR
+LIDAR_LOCATION_X = 0
+LIDAR_LOCATION_Y = 0
+LIDAR_LOCATION_Z = 2
+
+# Atributos de Radar
+RADAR_LOCATION_X = 2
+RADAR_LOCATION_Y = 0
+RADAR_LOCATION_Z = 1
+RADAR_PITCH = 5
+
 # TICKS
 SENSOR_TICK = 0.5
 WORLD_TICK = 0.05
 FRAME_TOLERANCE = 2
 
 # BLUEPRINTS
-RGB_SENSOR = 'sensor.camera.rgb'
-COLLISION_SENSOR = 'sensor.other.collision'
-LANE_SENSOR = 'sensor.other.lane_invasion'
-OBSTACLE_SENSOR = 'sensor.other.obstacle'
-GNSS_SENSOR = 'sensor.other.gnss'
-IMU_SENSOR = 'sensor.other.imu'
+RGB_SENSOR = "sensor.camera.rgb"
+COLLISION_SENSOR = "sensor.other.collision"
+LANE_SENSOR = "sensor.other.lane_invasion"
+OBSTACLE_SENSOR = "sensor.other.obstacle"
+GNSS_SENSOR = "sensor.other.gnss"
+IMU_SENSOR = "sensor.other.imu"
+LIDAR_SENSOR = "sensor.lidar.ray_cast"
+RADAR_SENSOR = "sensor.other.radar"
+SEMANTIC_LIDAR_SENSOR = "sensor.lidar_ray_cast_semantic"
 
 # DIRECTORIOS
 OUTPUT_DIR = "../recorder/sim_01_datamodel"
 IMG_SUBDIR = "rgb_images"
+LIDAR_SUBDIR = "lidar_clouds"
 
 def ask_config(role_name):
     """
@@ -61,7 +76,7 @@ def ask_config(role_name):
     print("Pulsar [S/s] o [Y/y] para activar. Otra tecla para desactivar.")
 
     config = {}
-    sensors = ['rgb', 'collision', 'lane', 'obstacle', 'gnss', 'imu']
+    sensors = ['rgb', 'collision', 'lane', 'obstacle', 'gnss', 'imu', 'lidar', 'radar']
 
     for s in sensors:
         response = input(f"¿Activar {s.upper()}? > ").lower()
@@ -276,7 +291,69 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
             })
         imu.listen(lambda event: imu_callback(event))
         sensors.append(imu)
-    
+
+    # 7. LiDAR
+    if sensor_configuration.get("lidar", False):
+        lidar_bp = blueprint_library.find(LIDAR_SENSOR)
+        lidar_bp.set_attribute("sensor_tick", str(SENSOR_TICK))
+
+        lidar_transform = carla.Transform(carla.Location(LIDAR_LOCATION_X, LIDAR_LOCATION_Y, LIDAR_LOCATION_Z))
+        lidar = world.spawn_actor(lidar_bp, lidar_transform, attach_to = vehicle, \
+                                  attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener
+        def lidar_callback(point_cloud):
+            filename = f"{point_cloud.frame:06d}.ply"
+            vehicle_dir = os.path.join(OUTPUT_DIR, role_name)
+            lidar_dir_abs = os.path.join(vehicle_dir, LIDAR_SUBDIR)
+            abs_path = os.path.join(lidar_dir_abs, filename)
+            rel_path = os.path.join(LIDAR_SUBDIR, filename)
+
+            # Guardado de la nube de puntos LiDAR
+            point_cloud.save_to_disk(abs_path)
+
+            # Metadatos en JSON
+            push_data("lidar", {
+                "frame": point_cloud.frame,
+                "relative_path": rel_path,
+                "num_points": len(point_cloud),
+                "horizontal_angle": point_cloud.horizontal_angle
+            })
+
+        lidar.listen(lambda data: lidar_callback(data))
+        sensors.append(lidar)
+
+    # 8. Radar
+    if sensor_configuration.get('radar', False):
+        radar_bp = blueprint_library.find(RADAR_SENSOR)
+        radar_bp.set_attribute("sensor_tick", str(SENSOR_TICK))
+
+        radar_transform = carla.Transform(carla.Location(RADAR_LOCATION_X, RADAR_LOCATION_Y, RADAR_LOCATION_Z), carla.Rotation(pitch = RADAR_PITCH))
+        radar = world.spawn_actor(radar_bp, radar_transform, attach_to = vehicle, \
+                                  attachment_type = carla.AttachmentType.Rigid)
+        
+        # Listener
+        def radar_callback(data):
+            points = []
+            for detection in data:
+                points.append({
+                    "velocity": detection.velocity,
+                    "azimuth": detection.azimuth,
+                    "altitude": detection.altitude,
+                    "depth": detection.depth
+                })
+
+                push_data("radar", {
+                    "frame": data.frame,
+                    "num_detections": len(points),
+                    "detections": points
+                })
+
+        radar.listen(lambda data: radar_callback(data))
+        sensors.append(radar)
+
+
+
     return vehicle, sensors
 
 def main():
@@ -307,7 +384,7 @@ def main():
     # Formato de mensajes de logging (Ej. INFO: "Loreipsum")
     logging.basicConfig(format = '%(levelname)s: %(message)s', level = logging.INFO)
 
-#   # Cola de recepcion de datos de los sensores
+    # Cola de recepcion de datos de los sensores
     sensor_queue = queue.Queue()
 
     client = carla.Client(args.host, args.port)
@@ -330,9 +407,15 @@ def main():
         # Ajustar la configuracion de los vehiculos
         spawn_data = []
         for blueprint_id, role_name, vehicle_id in base_configs:
-            vehicle_path = os.path.join(OUTPUT_DIR, role_name, IMG_SUBDIR)
-            if not os.path.exists(vehicle_path):
-                os.makedirs(vehicle_path)
+            # Crear carpeta de imagenes RGB
+            vehicle_path_img = os.path.join(OUTPUT_DIR, role_name, IMG_SUBDIR)
+            if not os.path.exists(vehicle_path_img):
+                os.makedirs(vehicle_path_img)
+
+            # Crear carpeta de nubes de puntos LiDAR
+            vehicle_path_lidar = os.path.join(OUTPUT_DIR, role_name, LIDAR_SUBDIR)
+            if not os.path.exists(vehicle_path_lidar):
+                os.makedirs(vehicle_path_lidar)
 
             config = ask_config(role_name)
             spawn_data.append((blueprint_id, role_name, vehicle_id, config))
