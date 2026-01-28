@@ -63,6 +63,90 @@ OUTPUT_DIR = "../recorder/sim_01_datamodel"
 IMG_SUBDIR = "rgb_images"
 LIDAR_SUBDIR = "lidar_clouds"
 
+# CONVERSIONES
+MS_TO_KMH = 3.6
+
+class BusSensor:
+    def __init__(self, world, vehicle, role_name, data_queue):
+        self.world = world
+        self.vehicle = vehicle
+        self.role_name = role_name
+        self.data_queue = data_queue
+
+        self.sensor_id = self.world.on_tick(self.tick)
+    
+    def tick(self, world_snapshot):
+        try:
+            actor_snapshot = world_snapshot.find(self.vehicle.id)
+
+            if actor_snapshot is None:
+                return
+
+            # Fisica del vehiculo
+            velocity = actor_snapshot.get_velocity()
+            acceleration = actor_snapshot.get_acceleration()
+            angular_velocity = actor_snapshot.get_angular_velocity()
+
+            speed_ms = (velocity.x ** 2 + velocity.y ** 2 + velocity.z ** 2) ** 0.5
+            speed_kmh = speed_ms * MS_TO_KMH
+            
+            # Logica
+            control = self.vehicle.get_control()
+            speed_limit = self.vehicle.get_speed_limit()
+            light_state = self.vehicle.get_light_state()
+            lights = {
+                "raw": light_state,
+                "none": bool(light_state & carla.VehicleLightState.NONE),
+                "position": bool(light_state & carla.VehicleLightState.Position),
+                "low_beam": bool(light_state & carla.VehicleLightState.LowBeam),
+                "high_beam": bool(light_state & carla.VehicleLightState.HighBeam),
+                "brake": bool(light_state & carla.VehicleLightState.Brake),
+                "right_blinker": bool(light_state & carla.VehicleLightState.RightBlinker),
+                "left_blinker": bool(light_state & carla.VehicleLightState.LeftBlinker),
+                "reverse": bool(light_state & carla.VehicleLightState.Reverse),
+                "fog": bool(light_state & carla.VehicleLightState.Fog),
+                "interior": bool(light_state & carla.VehicleLightState.Interior),
+                "all": bool(light_state & carla.VehicleLightState.All)
+            }
+
+            data = {
+                "frame": world_snapshot.frame,
+                "timestamp": world_snapshot.timestamp.platform_timestamp,
+                "pyshics": {
+                    "speed_ms": speed_ms,
+                    "speed_kmh": speed_kmh,
+                    "acceleration": {"x": acceleration.x, "y": acceleration.y, "z": acceleration.z},
+                    "angular_velocity": {"x": angular_velocity.x, "y": angular_velocity.y, "z": angular_velocity.z}
+                },
+                "control": {
+                    "steer": control.steer,
+                    "throttle": control.throttle,
+                    "brake": control.brake,
+                    "gear": control.gear,
+                    "hand_brake": control.hand_brake,
+                    "reverse": control.reverse,
+                    "lights": lights,
+                    "speed_limit": speed_limit
+                }
+            }
+
+            entry = {
+                "role": self.role_name,
+                "sensor": "bus",
+                "timestamp": datetime.now().isoformat(),
+                "data": data
+            }
+
+            self.data_queue.put(entry)
+        
+        except Exception as e:
+            logging.error(f"Error en Bus: {e}")
+    
+    def destroy(self):
+        if self.sensor_id:
+            self.world.remove_on_tick(self.sensor_id)
+            self.sensor_id = None
+
 def ask_config(role_name):
     """
     Solicita al usuario los ajustes que deben aplicarse a los sensores de un
@@ -76,7 +160,7 @@ def ask_config(role_name):
     print("Pulsar [S/s] o [Y/y] para activar. Otra tecla para desactivar.")
 
     config = {}
-    sensors = ['rgb', 'collision', 'lane', 'obstacle', 'gnss', 'imu', 'lidar', 'radar']
+    sensors = ['rgb', 'collision', 'lane', 'obstacle', 'gnss', 'imu', 'lidar', 'radar', 'bus']
 
     for s in sensors:
         response = input(f"¿Activar {s.upper()}? > ").lower()
@@ -352,7 +436,10 @@ def spawn_vehicle_with_attached_sensors(world, ego_bp_id, role_name, spawn_point
         radar.listen(lambda data: radar_callback(data))
         sensors.append(radar)
 
-
+    # 9. Bus
+    if sensor_configuration.get("bus", False):
+        bus_sensor = BusSensor(world, vehicle, role_name, data_queue)
+        sensors.append(bus_sensor)
 
     return vehicle, sensors
 
@@ -528,10 +615,11 @@ def main():
 
         # Limpieza de vehiculos del simulador
         if vehicles:
-            client.apply_batch([carla.command.DestroyActor(v) for v in vehicles])
-            print('\nVehiculos y sensores eliminados.')
-        else:
-            print('\nNo hay vehiculos por eliminar.')
+            for v in vehicles:
+                if hasattr(v, "destroy"):
+                    v.destroy()
+                elif hasattr(v, "id"):
+                    client.apply_batch([carla.command.DestroyActor(v)])
 
 if __name__ == '__main__':
     main()
