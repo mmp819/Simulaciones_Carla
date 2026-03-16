@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Platform/schema.json",
+    "title": "Smart data models - Platform schema",
+    "modelTags": "SOSA Platform",
+    "description": "A Platform is an entity that hosts other entities, particularly Sensors, Actuators, Samplers, and other Platforms.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Platform`",
+                    "enum": [
+                        "Platform"
+                    ]
+                },
+                "hosts": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Platform and a Sensor, Actuator, Sampler, or Platform, hosted or mounted on it."
+                },
+                "isHostedBy": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Sensor, Actuator, Sampler, or Platform, and the Platform that it is mounted on or hosted by."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

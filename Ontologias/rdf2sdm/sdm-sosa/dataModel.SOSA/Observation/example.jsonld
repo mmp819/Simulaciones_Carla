@@ -1,0 +1,14 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:BRHJ:24299731",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:LXDP:11994937",
+    "type": "Observation",
+    "hasResult": null,
+    "madeBySensor": null,
+    "usedProcedure": null,
+    "hasFeatureOfInterest": null,
+    "observedProperty": null,
+    "phenomenonTime": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

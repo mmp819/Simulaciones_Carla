@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Sample/schema.json",
+    "title": "Smart data models - Sample schema",
+    "modelTags": "SOSA Sample",
+    "description": "Feature which is intended to be representative of a FeatureOfInterest on which Observations may be made.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Sample`",
+                    "enum": [
+                        "Sample"
+                    ]
+                },
+                "isSampleOf": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation from a Sample to the FeatureOfInterest that it is intended to be representative of."
+                },
+                "isResultOf": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation linking a Result to the Observation or Actuation or act of Sampling that created or caused it."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

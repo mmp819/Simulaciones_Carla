@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Observation/schema.json",
+    "title": "Smart data models - Observation schema",
+    "modelTags": "SOSA Observation",
+    "description": "Act of carrying out an (Observation) Procedure to estimate or calculate a value of a property of a FeatureOfInterest. Links to a Sensor to describe what made the Observation and how; links to an ObservableProperty to describe what the result is an estimate of, and to a FeatureOfInterest to detail what that property was associated with.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Observation`",
+                    "enum": [
+                        "Observation"
+                    ]
+                },
+                "hasResult": {
+                    "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/EntityIdentifierType",
+                    "description": "Property. Relation linking an Observation or Actuation or act of Sampling and a Result or Sample."
+                },
+                "madeBySensor": {
+                    "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/EntityIdentifierType",
+                    "description": "Property. Relation between an Observation and the Sensor which made the Observation."
+                },
+                "usedProcedure": {
+                    "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/EntityIdentifierType",
+                    "description": "Property. A relation to link to a re-usable Procedure used in making an Observation, an Actuation, or a Sample, typically through a Sensor, Actuator or Sampler."
+                },
+                "hasFeatureOfInterest": {
+                    "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/EntityIdentifierType",
+                    "description": "Property. A relation between an Observation and the entity whose quality was observed, or between an Actuation and the entity whose property was modified, or between an act of Sampling and the entity that was sampled."
+                },
+                "observedProperty": {
+                    "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/EntityIdentifierType",
+                    "description": "Property. Relation linking an Observation to the property that was observed. The ObservableProperty should be a property of the FeatureOfInterest (linked by hasFeatureOfInterest) of this Observation."
+                },
+                "phenomenonTime": {
+                    "type": "",
+                    "description": "Property. Model: ''. The time that the Result of an Observation, Actuation or Sampling applies to the FeatureOfInterest. Not necessarily the same as the resultTime. May be an Interval or an Instant, or some other compound TemporalEntity."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

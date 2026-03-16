@@ -1,0 +1,15 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:WWJV:31446268",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:$ref:YETS:61231974"
+    },
+    "type": "Actuation",
+    "madeByActuator": null,
+    "actsOnProperty": null,
+    "hasFeatureOfInterest": null,
+    "usedProcedure": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

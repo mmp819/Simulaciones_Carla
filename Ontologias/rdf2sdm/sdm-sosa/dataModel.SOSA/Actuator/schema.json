@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Actuator/schema.json",
+    "title": "Smart data models - Actuator schema",
+    "modelTags": "SOSA Actuator",
+    "description": "A device that is used by, or implements, an (Actuation) Procedure that changes the state of the world.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Actuator`",
+                    "enum": [
+                        "Actuator"
+                    ]
+                },
+                "madeActuation": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between an Actuator and the Actuation it has made."
+                },
+                "isHostedBy": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Sensor, Actuator, Sampler, or Platform, and the Platform that it is mounted on or hosted by."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:UVFD:85404339",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:$ref:QIKE:77992094"
+    },
+    "type": "Sampling",
+    "madeBySampler": null,
+    "hasResult": null,
+    "hasFeatureOfInterest": null,
+    "usedProcedure": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

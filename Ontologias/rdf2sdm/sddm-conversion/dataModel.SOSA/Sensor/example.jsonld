@@ -1,0 +1,11 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:TJWW:99898171",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:XUJP:29953751",
+    "type": "Sensor",
+    "observes": "urn:ngsi-ld:SOSA:observes:IAQA:16852121",
+    "madeObservation": "urn:ngsi-ld:SOSA:madeObservation:MCYO:06085449",
+    "isHostedBy": "urn:ngsi-ld:SOSA:isHostedBy:DYVP:65627646",
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

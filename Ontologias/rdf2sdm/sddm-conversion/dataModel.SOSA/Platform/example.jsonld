@@ -1,0 +1,10 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:WNGV:86367914",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:UTOJ:44356376",
+    "type": "Platform",
+    "hosts": null,
+    "isHostedBy": "urn:ngsi-ld:SOSA:isHostedBy:PVKJ:80281897",
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "@context": {
+        "Actuator": "https://smartdatamodels.org/dataModel.S4BLDG/Actuator",
+        "failPosition": "https://smartdatamodels.org/dataModel.S4BLDG/failPosition",
+        "id": "@id",
+        "manualOverride": "https://smartdatamodels.org/dataModel.S4BLDG/manualOverride",
+        "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+        "type": "@type"
+    }
+}

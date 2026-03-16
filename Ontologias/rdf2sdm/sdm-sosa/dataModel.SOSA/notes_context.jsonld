@@ -1,0 +1,29 @@
+{
+  "@context": {
+    "Sample": "http://www.w3.org/ns/sosa/Sample",
+    "isSampleOf": "http://www.w3.org/ns/sosa/isSampleOf",
+    "isResultOf": "http://www.w3.org/ns/sosa/isResultOf",
+    "Actuator": "http://www.w3.org/ns/sosa/Actuator",
+    "madeActuation": "http://www.w3.org/ns/sosa/madeActuation",
+    "isHostedBy": "http://www.w3.org/ns/sosa/isHostedBy",
+    "Sensor": "http://www.w3.org/ns/sosa/Sensor",
+    "observes": "http://www.w3.org/ns/sosa/observes",
+    "madeObservation": "http://www.w3.org/ns/sosa/madeObservation",
+    "Observation": "http://www.w3.org/ns/sosa/Observation",
+    "hasResult": "http://www.w3.org/ns/sosa/hasResult",
+    "madeBySensor": "http://www.w3.org/ns/sosa/madeBySensor",
+    "usedProcedure": "http://www.w3.org/ns/sosa/usedProcedure",
+    "hasFeatureOfInterest": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+    "observedProperty": "http://www.w3.org/ns/sosa/observedProperty",
+    "phenomenonTime": "http://www.w3.org/ns/sosa/phenomenonTime",
+    "Actuation": "http://www.w3.org/ns/sosa/Actuation",
+    "madeByActuator": "http://www.w3.org/ns/sosa/madeByActuator",
+    "actsOnProperty": "http://www.w3.org/ns/sosa/actsOnProperty",
+    "Platform": "http://www.w3.org/ns/sosa/Platform",
+    "hosts": "http://www.w3.org/ns/sosa/hosts",
+    "Sampler": "http://www.w3.org/ns/sosa/Sampler",
+    "madeSampling": "http://www.w3.org/ns/sosa/madeSampling",
+    "Sampling": "http://www.w3.org/ns/sosa/Sampling",
+    "madeBySampler": "http://www.w3.org/ns/sosa/madeBySampler"
+  }
+}

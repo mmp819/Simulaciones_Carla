@@ -1,0 +1,39 @@
+version: "3.8"
+services:
+  fiware-orion-ld:
+    image: fiware/orion-ld:${ORION_LD_VERSION}
+    hostname: fiware-orion-ld
+    container_name: fiware-orion-ld
+    networks:
+      - default
+    expose:
+      - 1026
+    ports:
+      - 1026:1026
+    environment:
+      - ORIONLD_HTTPS=FALSE
+    depends_on:
+      - fiware-mongo-db
+    command: -dbhost fiware-mongo-db -logLevel DEBUG -experimental
+
+  fiware-mongo-db:
+    image: mongo:${MONGO_DB_VERSION}
+    hostname: fiware-mongo-db
+    networks:
+      - default
+    command: --nojournal
+    volumes:
+      - /data/docker/orion-ld/mongodb:/data
+
+  nginx: 
+    image: nginx:1.23-alpine
+    restart: on-failure
+    volumes:
+      #- ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d/:/etc/nginx/conf.d/
+      - ./www/:/usr/share/nginx/html/
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - default

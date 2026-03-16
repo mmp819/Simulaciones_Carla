@@ -1,0 +1,32 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:MYKX:98575376",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:$ref:PWNU:80987222"
+    },
+    "type": "Observation",
+    "hasResult": {
+        "hasResult": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:hasResult:PAXL:28417291"
+    },
+    "madeBySensor": {
+        "madeBySensor": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:madeBySensor:QLLI:03766576"
+    },
+    "usedProcedure": {
+        "usedProcedure": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:usedProcedure:UIKN:73634241"
+    },
+    "hasFeatureOfInterest": {
+        "hasFeatureOfInterest": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:hasFeatureOfInterest:EHMY:69831202"
+    },
+    "observedProperty": {
+        "observedProperty": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:observedProperty:EJRC:47922951"
+    },
+    "phenomenonTime": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

@@ -1,0 +1,17 @@
+{
+  "@context": {
+    "Platform": "http://www.w3.org/ns/sosa/Platform",
+    "hosts": "http://www.w3.org/ns/sosa/hosts",
+    "isHostedBy": "http://www.w3.org/ns/sosa/isHostedBy",
+    "Sensor": "http://www.w3.org/ns/sosa/Sensor",
+    "observes": "http://www.w3.org/ns/sosa/observes",
+    "madeObservation": "http://www.w3.org/ns/sosa/madeObservation",
+    "Observation": "http://www.w3.org/ns/sosa/Observation",
+    "hasResult": "http://www.w3.org/ns/sosa/hasResult",
+    "madeBySensor": "http://www.w3.org/ns/sosa/madeBySensor",
+    "usedProcedure": "http://www.w3.org/ns/sosa/usedProcedure",
+    "hasFeatureOfInterest": "http://www.w3.org/ns/sosa/hasFeatureOfInterest",
+    "observedProperty": "http://www.w3.org/ns/sosa/observedProperty",
+    "phenomenonTime": "http://www.w3.org/ns/sosa/phenomenonTime"
+  }
+}

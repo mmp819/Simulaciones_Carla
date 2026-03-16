@@ -1,0 +1,10 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:KSYU:62979321",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:RDOS:70522812",
+    "type": "Platform",
+    "hosts": null,
+    "isHostedBy": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

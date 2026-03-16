@@ -1,0 +1,14 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:WTYM:83937546",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:$ref:USDV:18218326"
+    },
+    "type": "Sensor",
+    "observes": null,
+    "madeObservation": null,
+    "isHostedBy": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

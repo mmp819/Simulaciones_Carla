@@ -1,0 +1,32 @@
+{
+    "@context": {
+        "Actuation": "https://smartdatamodels.org/dataModel.SOSA/Actuation",
+        "Actuator": "https://smartdatamodels.org/dataModel.SOSA/Actuator",
+        "Observation": "https://smartdatamodels.org/dataModel.SOSA/Observation",
+        "Platform": "https://smartdatamodels.org/dataModel.SOSA/Platform",
+        "Sample": "https://smartdatamodels.org/dataModel.SOSA/Sample",
+        "Sampler": "https://smartdatamodels.org/dataModel.SOSA/Sampler",
+        "Sampling": "https://smartdatamodels.org/dataModel.SOSA/Sampling",
+        "Sensor": "https://smartdatamodels.org/dataModel.SOSA/Sensor",
+        "actsOnProperty": "https://smartdatamodels.org/dataModel.SOSA/actsOnProperty",
+        "hasFeatureOfInterest": "https://smartdatamodels.org/dataModel.SOSA/hasFeatureOfInterest",
+        "hasResult": "https://smartdatamodels.org/dataModel.SOSA/hasResult",
+        "hosts": "https://smartdatamodels.org/dataModel.SOSA/hosts",
+        "id": "@id",
+        "isHostedBy": "https://smartdatamodels.org/dataModel.SOSA/isHostedBy",
+        "isResultOf": "https://smartdatamodels.org/dataModel.SOSA/isResultOf",
+        "isSampleOf": "https://smartdatamodels.org/dataModel.SOSA/isSampleOf",
+        "madeActuation": "https://smartdatamodels.org/dataModel.SOSA/madeActuation",
+        "madeByActuator": "https://smartdatamodels.org/dataModel.SOSA/madeByActuator",
+        "madeBySampler": "https://smartdatamodels.org/dataModel.SOSA/madeBySampler",
+        "madeBySensor": "https://smartdatamodels.org/dataModel.SOSA/madeBySensor",
+        "madeObservation": "https://smartdatamodels.org/dataModel.SOSA/madeObservation",
+        "madeSampling": "https://smartdatamodels.org/dataModel.SOSA/madeSampling",
+        "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+        "observedProperty": "https://smartdatamodels.org/dataModel.SOSA/observedProperty",
+        "observes": "https://smartdatamodels.org/dataModel.SOSA/observes",
+        "phenomenonTime": "https://smartdatamodels.org/dataModel.SOSA/phenomenonTime",
+        "type": "@type",
+        "usedProcedure": "https://smartdatamodels.org/dataModel.SOSA/usedProcedure"
+    }
+}

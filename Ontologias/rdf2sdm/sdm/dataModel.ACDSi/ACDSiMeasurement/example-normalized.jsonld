@@ -1,0 +1,103 @@
+{
+    "id": "urn:ngsi-ld:ACDSi:id:NSTM:47892197",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:ACDSi:$ref:QXYB:48411825"
+    },
+    "type": "ACDSiMeasurement",
+    "bodyMassIndex": {
+        "type": "Property",
+        "value": 225.5
+    },
+    "height": {
+        "type": "Property",
+        "value": 186.7
+    },
+    "tricepsSkinfold": {
+        "type": "Property",
+        "value": 158.1
+    },
+    "weight": {
+        "type": "Property",
+        "value": 864.2
+    },
+    "flamingoBalanceTest": {
+        "type": "Property",
+        "value": 328.6
+    },
+    "handGrip": {
+        "type": "Property",
+        "value": 142.4
+    },
+    "shoulderCircumductionTest": {
+        "type": "Property",
+        "value": 888.4
+    },
+    "sitAndReach": {
+        "type": "Property",
+        "value": 29.9
+    },
+    "standingLongJump": {
+        "type": "Property",
+        "value": 400.9
+    },
+    "vO2Max": {
+        "type": "Property",
+        "value": 725.5
+    },
+    "20-sDrummingTest": {
+        "type": "Property",
+        "value": 885.1
+    },
+    "20-sSit-ups": {
+        "type": "Property",
+        "value": 313.7
+    },
+    "30-mDash": {
+        "type": "Property",
+        "value": 962.3
+    },
+    "age": {
+        "type": "Property",
+        "value": 243.5
+    },
+    "personIdentifier": {
+        "type": "Property",
+        "value": "Low history him. Write say top ago return move. Enough guess at cold inside building available."
+    },
+    "sex": {
+        "type": "Property",
+        "value": "Kitchen product free food job region others."
+    },
+    "armPlateTapping": {
+        "type": "Property",
+        "value": 519.4
+    },
+    "backwardsObstacleCourse": {
+        "type": "Property",
+        "value": 771.8
+    },
+    "bentArm-hang": {
+        "type": "Property",
+        "value": 464.4
+    },
+    "standAndReach": {
+        "type": "Property",
+        "value": 500.8
+    },
+    "60-mDash": {
+        "type": "Property",
+        "value": 705.4
+    },
+    "60-sSit-ups": {
+        "type": "Property",
+        "value": 447.9
+    },
+    "600-mRun": {
+        "type": "Property",
+        "value": 749.2
+    },
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.ACDSi/master/context.jsonld"
+    ]
+}

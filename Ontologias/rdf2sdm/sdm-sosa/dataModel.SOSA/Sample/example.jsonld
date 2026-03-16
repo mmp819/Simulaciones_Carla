@@ -1,0 +1,10 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:DLKD:00914055",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:SEIE:32863619",
+    "type": "Sample",
+    "isSampleOf": null,
+    "isResultOf": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

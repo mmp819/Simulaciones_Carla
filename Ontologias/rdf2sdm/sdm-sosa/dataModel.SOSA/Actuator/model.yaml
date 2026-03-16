@@ -1,0 +1,36 @@
+Actuator:
+  description: A device that is used by, or implements, an (Actuation) Procedure that
+    changes the state of the world.
+  properties:
+    isHostedBy:
+      description: Relation between a Sensor, Actuator, Sampler, or Platform, and
+        the Platform that it is mounted on or hosted by.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    madeActuation:
+      description: Relation between an Actuator and the Actuation it has made.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    type:
+      description: Property. NGSI entity type. It must be equal to `Actuator`
+      enum:
+      - Actuator
+      type: string
+      x-ngsi:
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: http://www.w3.org/ns/sosa/
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.SOSA/blob/master/Actuator/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.SOSA/Actuator/schema.json
+  x-model-tags: SOSA Actuator
+  x-version: 0.0.1

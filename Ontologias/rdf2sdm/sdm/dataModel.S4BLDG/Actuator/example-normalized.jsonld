@@ -1,0 +1,19 @@
+{
+    "id": "urn:ngsi-ld:S4BLDG:id:YWXE:69463890",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:S4BLDG:$ref:SFYI:08101010"
+    },
+    "type": "Actuator",
+    "failPosition": {
+        "type": "Property",
+        "value": "Explain ready write assume protect threat. Left difficult only turn all to I."
+    },
+    "manualOverride": {
+        "type": "Property",
+        "value": false
+    },
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.S4BLDG/master/context.jsonld"
+    ]
+}

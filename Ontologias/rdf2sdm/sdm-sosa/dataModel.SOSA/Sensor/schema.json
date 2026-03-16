@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Sensor/schema.json",
+    "title": "Smart data models - Sensor schema",
+    "modelTags": "SOSA Sensor",
+    "description": "Device, agent (including humans), or software (simulation) involved in, or implementing, a Procedure. Sensors respond to a stimulus, e.g., a change in the environment, or input data composed from the results of prior Observations, and generate a Result. Sensors can be hosted by Platforms.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Sensor`",
+                    "enum": [
+                        "Sensor"
+                    ]
+                },
+                "observes": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Sensor and an ObservableProperty that it is capable of sensing."
+                },
+                "madeObservation": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Sensor and an Observation made by the Sensor."
+                },
+                "isHostedBy": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation between a Sensor, Actuator, Sampler, or Platform, and the Platform that it is mounted on or hosted by."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

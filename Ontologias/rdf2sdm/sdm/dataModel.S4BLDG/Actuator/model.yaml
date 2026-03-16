@@ -1,0 +1,38 @@
+Actuator:
+  description: An actuator is a mechanical device for moving or controlling a mechanism
+    or system. An actuator takes energy, usually created by air, electricity, or liquid,
+    and converts that into some kind of motion.
+  properties:
+    failPosition:
+      description: Specifies the required fail-safe position of the actuator.
+      type: string
+      x-ngsi:
+        model: https://schema.org/Text
+        type: Property
+    manualOverride:
+      description: Identifies whether hand-operated operation is provided as an override
+        (= TRUE) or not (= FALSE). Note that this value should be set to FALSE by
+        default in the case of a Hand Operated Actuator.
+      type: boolean
+      x-ngsi:
+        model: https://schema.org/Boolean
+        type: Property
+    type:
+      description: Property. NGSI entity type. It must be equal to `Actuator`
+      enum:
+      - Actuator
+      type: string
+      x-ngsi:
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: https://saref.etsi.org/saref4bldg/
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.S4BLDG/blob/master/Actuator/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.S4BLDG/Actuator/schema.json
+  x-model-tags: S4BLDG Actuator
+  x-version: 0.0.1

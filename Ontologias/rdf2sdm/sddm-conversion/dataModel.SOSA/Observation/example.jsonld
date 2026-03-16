@@ -1,0 +1,14 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:MYKX:98575376",
+    "$ref": "urn:ngsi-ld:SOSA:$ref:PWNU:80987222",
+    "type": "Observation",
+    "hasResult": "urn:ngsi-ld:SOSA:hasResult:PAXL:28417291",
+    "madeBySensor": "urn:ngsi-ld:SOSA:madeBySensor:QLLI:03766576",
+    "usedProcedure": "urn:ngsi-ld:SOSA:usedProcedure:UIKN:73634241",
+    "hasFeatureOfInterest": "urn:ngsi-ld:SOSA:hasFeatureOfInterest:EHMY:69831202",
+    "observedProperty": "urn:ngsi-ld:SOSA:observedProperty:EJRC:47922951",
+    "phenomenonTime": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

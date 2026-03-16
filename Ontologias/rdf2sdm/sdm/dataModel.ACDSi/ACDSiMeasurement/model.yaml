@@ -1,0 +1,165 @@
+ACDSiMeasurement:
+  description: A set of measurements in an ACDSi campaign pertaining to a single person.
+  properties:
+    20-sDrummingTest:
+      description: '20-s Drumming Test description. Units: ''one'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    20-sSit-ups:
+      description: '20-s Sit-ups description. Units: ''one'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    30-mDash:
+      description: '30-m Dash description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    60-mDash:
+      description: '60-m Dash description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    60-sSit-ups:
+      description: '60-s Sit-ups description. Units: ''one'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    600-mRun:
+      description: '600-m Run description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    age:
+      description: 'Age in years at the ACDSi Measurement time. Units: ''year'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    armPlateTapping:
+      description: 'Arm Plate Tapping description. Units: ''one'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    backwardsObstacleCourse:
+      description: 'Backwards Obstacle Course description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    bentArm-hang:
+      description: 'Bent Arm-hang description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    bodyMassIndex:
+      description: 'A measurement relating body weight to height in an organism; typically
+        calculated as the weight of an individual divided by the height of that individual
+        squared. For quadrupeds, the square of body height is often replaced by the
+        square of body length. Units: ''kilogram per meter squared'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    flamingoBalanceTest:
+      description: 'Flamingo Balance Test description. Units: ''second'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    handGrip:
+      description: 'Hand Grip description. Units: ''kilogram'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    height:
+      description: 'Height description. Units: ''centimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    personIdentifier:
+      description: Any value identifying the person subject to the ACDSi Measurement.
+        Anonymized and should prevent reidentification.
+      type: string
+      x-ngsi:
+        model: https://schema.org/Text
+        type: Property
+    sex:
+      description: Biological sex is the quality of a biological organism based on
+        reproductive function or organs.
+      type: string
+      x-ngsi:
+        model: https://schema.org/Text
+        type: Property
+    shoulderCircumductionTest:
+      description: 'Shoulder Circumduction Test description. Units: ''centimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    sitAndReach:
+      description: 'Sit and Reach description. Units: ''centimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    standAndReach:
+      description: 'Stand and Reach description. Units: ''centimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    standingLongJump:
+      description: 'Standing Long Jump description. Units: ''centimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    tricepsSkinfold:
+      description: 'Triceps Skinfold description. Units: ''millimetre'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    type:
+      description: Property. NGSI entity type. It must be equal to `ACDSiMeasurement`
+      enum:
+      - ACDSiMeasurement
+      type: string
+      x-ngsi:
+        type: Property
+    vO2Max:
+      description: 'VO2max description. Units: ''ml/kg/min'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+    weight:
+      description: 'Weight description. Units: ''kilogram'''
+      type: number
+      x-ngsi:
+        model: https://schema.org/Number
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: https://github.com/fdrobnic/ontologies/ACDSi
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.ACDSi/blob/master/ACDSiMeasurement/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.ACDSi/ACDSiMeasurement/schema.json
+  x-model-tags: ACDSi ACDSiMeasurement
+  x-version: 0.0.1

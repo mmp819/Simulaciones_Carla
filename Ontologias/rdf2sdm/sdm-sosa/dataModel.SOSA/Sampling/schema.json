@@ -1,0 +1,50 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.SOSA/Sampling/schema.json",
+    "title": "Smart data models - Sampling schema",
+    "modelTags": "SOSA Sampling",
+    "description": "An act of Sampling carries out a sampling Procedure to create or transform one or more samples.",
+    "type": "object",
+    "derivedFrom": "http://www.w3.org/ns/sosa/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Sampling`",
+                    "enum": [
+                        "Sampling"
+                    ]
+                },
+                "madeBySampler": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation linking an act of Sampling to the Sampler (sampling device or entity) that made it."
+                },
+                "hasResult": {
+                    "type": "",
+                    "description": "Property. Model: ''. Relation linking an Observation or Actuation or act of Sampling and a Result or Sample."
+                },
+                "hasFeatureOfInterest": {
+                    "type": "",
+                    "description": "Property. Model: ''. A relation between an Observation and the entity whose quality was observed, or between an Actuation and the entity whose property was modified, or between an act of Sampling and the entity that was sampled."
+                },
+                "usedProcedure": {
+                    "type": "",
+                    "description": "Property. Model: ''. A relation to link to a re-usable Procedure used in making an Observation, an Actuation, or a Sample, typically through a Sensor, Actuator or Sampler."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

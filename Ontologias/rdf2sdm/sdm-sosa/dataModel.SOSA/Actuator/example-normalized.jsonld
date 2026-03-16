@@ -1,0 +1,13 @@
+{
+    "id": "urn:ngsi-ld:SOSA:id:TAST:89156599",
+    "$ref": {
+        "$ref": "Version 0.1 not implemented",
+        "value": "urn:ngsi-ld:SOSA:$ref:QUZR:61635824"
+    },
+    "type": "Actuator",
+    "madeActuation": null,
+    "isHostedBy": null,
+    "@context": [
+        "https://raw.githubusercontent.com/smart-data-models/dataModel.SOSA/master/context.jsonld"
+    ]
+}

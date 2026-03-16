@@ -1,0 +1,7 @@
+{
+  "@context": {
+    "Actuator": "https://saref.etsi.org/saref4bldg/Actuator",
+    "failPosition": "https://saref.etsi.org/saref4bldg/failPosition",
+    "manualOverride": "https://saref.etsi.org/saref4bldg/manualOverride"
+  }
+}

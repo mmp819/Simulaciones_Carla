@@ -1,0 +1,126 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.ACDSi/ACDSiMeasurement/schema.json",
+    "title": "Smart data models - ACDSiMeasurement schema",
+    "modelTags": "ACDSi ACDSiMeasurement",
+    "description": "A set of measurements in an ACDSi campaign pertaining to a single person.",
+    "type": "object",
+    "derivedFrom": "https://github.com/fdrobnic/ontologies/ACDSi",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `ACDSiMeasurement`",
+                    "enum": [
+                        "ACDSiMeasurement"
+                    ]
+                },
+                "bodyMassIndex": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. A measurement relating body weight to height in an organism; typically calculated as the weight of an individual divided by the height of that individual squared. For quadrupeds, the square of body height is often replaced by the square of body length. Units: 'kilogram per meter squared'"
+                },
+                "height": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Height description. Units: 'centimetre'"
+                },
+                "tricepsSkinfold": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Triceps Skinfold description. Units: 'millimetre'"
+                },
+                "weight": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Weight description. Units: 'kilogram'"
+                },
+                "flamingoBalanceTest": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Flamingo Balance Test description. Units: 'second'"
+                },
+                "handGrip": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Hand Grip description. Units: 'kilogram'"
+                },
+                "shoulderCircumductionTest": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Shoulder Circumduction Test description. Units: 'centimetre'"
+                },
+                "sitAndReach": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Sit and Reach description. Units: 'centimetre'"
+                },
+                "standingLongJump": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Standing Long Jump description. Units: 'centimetre'"
+                },
+                "vO2Max": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. VO2max description. Units: 'ml/kg/min'"
+                },
+                "20-sDrummingTest": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 20-s Drumming Test description. Units: 'one'"
+                },
+                "20-sSit-ups": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 20-s Sit-ups description. Units: 'one'"
+                },
+                "30-mDash": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 30-m Dash description. Units: 'second'"
+                },
+                "age": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Age in years at the ACDSi Measurement time. Units: 'year'"
+                },
+                "personIdentifier": {
+                    "type": "string",
+                    "description": "Property. Model: 'https://schema.org/Text'. Any value identifying the person subject to the ACDSi Measurement. Anonymized and should prevent reidentification."
+                },
+                "sex": {
+                    "type": "string",
+                    "description": "Property. Model: 'https://schema.org/Text'. Biological sex is the quality of a biological organism based on reproductive function or organs."
+                },
+                "armPlateTapping": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Arm Plate Tapping description. Units: 'one'"
+                },
+                "backwardsObstacleCourse": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Backwards Obstacle Course description. Units: 'second'"
+                },
+                "bentArm-hang": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Bent Arm-hang description. Units: 'second'"
+                },
+                "standAndReach": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. Stand and Reach description. Units: 'centimetre'"
+                },
+                "60-mDash": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 60-m Dash description. Units: 'second'"
+                },
+                "60-sSit-ups": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 60-s Sit-ups description. Units: 'one'"
+                },
+                "600-mRun": {
+                    "type": "number",
+                    "description": "Property. Model: 'https://schema.org/Number'. 600-m Run description. Units: 'second'"
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

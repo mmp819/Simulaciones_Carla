@@ -1,0 +1,31 @@
+{
+    "@context": {
+        "20-sDrummingTest": "https://smartdatamodels.org/dataModel.ACDSi/20-sDrummingTest",
+        "20-sSit-ups": "https://smartdatamodels.org/dataModel.ACDSi/20-sSit-ups",
+        "30-mDash": "https://smartdatamodels.org/dataModel.ACDSi/30-mDash",
+        "60-mDash": "https://smartdatamodels.org/dataModel.ACDSi/60-mDash",
+        "60-sSit-ups": "https://smartdatamodels.org/dataModel.ACDSi/60-sSit-ups",
+        "600-mRun": "https://smartdatamodels.org/dataModel.ACDSi/600-mRun",
+        "ACDSiMeasurement": "https://smartdatamodels.org/dataModel.ACDSi/ACDSiMeasurement",
+        "age": "https://smartdatamodels.org/dataModel.ACDSi/age",
+        "armPlateTapping": "https://smartdatamodels.org/dataModel.ACDSi/armPlateTapping",
+        "backwardsObstacleCourse": "https://smartdatamodels.org/dataModel.ACDSi/backwardsObstacleCourse",
+        "bentArm-hang": "https://smartdatamodels.org/dataModel.ACDSi/bentArm-hang",
+        "bodyMassIndex": "https://smartdatamodels.org/dataModel.ACDSi/bodyMassIndex",
+        "flamingoBalanceTest": "https://smartdatamodels.org/dataModel.ACDSi/flamingoBalanceTest",
+        "handGrip": "https://smartdatamodels.org/dataModel.ACDSi/handGrip",
+        "height": "https://smartdatamodels.org/dataModel.ACDSi/height",
+        "id": "@id",
+        "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+        "personIdentifier": "https://smartdatamodels.org/dataModel.ACDSi/personIdentifier",
+        "sex": "https://smartdatamodels.org/dataModel.ACDSi/sex",
+        "shoulderCircumductionTest": "https://smartdatamodels.org/dataModel.ACDSi/shoulderCircumductionTest",
+        "sitAndReach": "https://smartdatamodels.org/dataModel.ACDSi/sitAndReach",
+        "standAndReach": "https://smartdatamodels.org/dataModel.ACDSi/standAndReach",
+        "standingLongJump": "https://smartdatamodels.org/dataModel.ACDSi/standingLongJump",
+        "tricepsSkinfold": "https://smartdatamodels.org/dataModel.ACDSi/tricepsSkinfold",
+        "type": "@type",
+        "vO2Max": "https://smartdatamodels.org/dataModel.ACDSi/vO2Max",
+        "weight": "https://smartdatamodels.org/dataModel.ACDSi/weight"
+    }
+}

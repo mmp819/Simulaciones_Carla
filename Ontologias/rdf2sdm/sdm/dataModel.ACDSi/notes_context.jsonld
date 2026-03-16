@@ -1,0 +1,28 @@
+{
+  "@context": {
+    "ACDSiMeasurement": "https://github.com/fdrobnic/ontologies/ACDSi#ACDSiMeasurement",
+    "bodyMassIndex": "https://github.com/fdrobnic/ontologies/ACDSi#bodyMassIndex",
+    "height": "https://github.com/fdrobnic/ontologies/ACDSi#height",
+    "tricepsSkinfold": "https://github.com/fdrobnic/ontologies/ACDSi#tricepsSkinfold",
+    "weight": "https://github.com/fdrobnic/ontologies/ACDSi#weight",
+    "flamingoBalanceTest": "https://github.com/fdrobnic/ontologies/ACDSi#flamingoBalanceTest",
+    "handGrip": "https://github.com/fdrobnic/ontologies/ACDSi#handGrip",
+    "shoulderCircumductionTest": "https://github.com/fdrobnic/ontologies/ACDSi#shoulderCircumductionTest",
+    "sitAndReach": "https://github.com/fdrobnic/ontologies/ACDSi#sitAndReach",
+    "standingLongJump": "https://github.com/fdrobnic/ontologies/ACDSi#standingLongJump",
+    "vO2Max": "https://github.com/fdrobnic/ontologies/ACDSi#vO2Max",
+    "20-sDrummingTest": "https://github.com/fdrobnic/ontologies/ACDSi#20-sDrummingTest",
+    "20-sSit-ups": "https://github.com/fdrobnic/ontologies/ACDSi#20-sSit-ups",
+    "30-mDash": "https://github.com/fdrobnic/ontologies/ACDSi#30-mDash",
+    "age": "https://github.com/fdrobnic/ontologies/ACDSi#age",
+    "personIdentifier": "https://github.com/fdrobnic/ontologies/ACDSi#personIdentifier",
+    "sex": "https://github.com/fdrobnic/ontologies/ACDSi#sex",
+    "armPlateTapping": "https://github.com/fdrobnic/ontologies/ACDSi#armPlateTapping",
+    "backwardsObstacleCourse": "https://github.com/fdrobnic/ontologies/ACDSi#backwardsObstacleCourse",
+    "bentArm-hang": "https://github.com/fdrobnic/ontologies/ACDSi#bentArm-hang",
+    "standAndReach": "https://github.com/fdrobnic/ontologies/ACDSi#standAndReach",
+    "60-mDash": "https://github.com/fdrobnic/ontologies/ACDSi#60-mDash",
+    "60-sSit-ups": "https://github.com/fdrobnic/ontologies/ACDSi#60-sSit-ups",
+    "600-mRun": "https://github.com/fdrobnic/ontologies/ACDSi#600-mRun"
+  }
+}

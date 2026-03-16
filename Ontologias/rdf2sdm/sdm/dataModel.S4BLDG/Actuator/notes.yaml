@@ -1,0 +1,8 @@
+notesHeader:
+  This ontology extends the SAREF ontology for the building domain by defining building devices and how they are located in a building. This extension is based on the ISO 16739:2013 Industry Foundation Classes (IFC) standard for data sharing in the construction and facility management industries. The descriptions of the classes and properties extracted from IFC have been taken from the IFC documentation.
+notesMiddle:
+
+notesFooter:
+
+notesReadme:
+  This ontology extends the SAREF ontology for the building domain by defining building devices and how they are located in a building. This extension is based on the ISO 16739:2013 Industry Foundation Classes (IFC) standard for data sharing in the construction and facility management industries. The descriptions of the classes and properties extracted from IFC have been taken from the IFC documentation.

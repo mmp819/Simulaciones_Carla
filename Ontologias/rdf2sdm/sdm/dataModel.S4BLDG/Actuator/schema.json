@@ -1,0 +1,42 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "$schemaVersion": "0.0.1",
+    "$id": "https://smart-data-models.github.com/dataModel.S4BLDG/Actuator/schema.json",
+    "title": "Smart data models - Actuator schema",
+    "modelTags": "S4BLDG Actuator",
+    "description": "An actuator is a mechanical device for moving or controlling a mechanism or system. An actuator takes energy, usually created by air, electricity, or liquid, and converts that into some kind of motion.",
+    "type": "object",
+    "derivedFrom": "https://saref.etsi.org/saref4bldg/",
+    "license": "https://opensource.org/licenses/BSD-3-Clause",
+    "allOf": [
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/GSMA-Commons"
+        },
+        {
+            "$ref": "https://smart-data-models.github.io/data-models/common-schema.json#/definitions/Location-Commons"
+        },
+        {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Property. NGSI entity type. It must be equal to `Actuator`",
+                    "enum": [
+                        "Actuator"
+                    ]
+                },
+                "failPosition": {
+                    "type": "string",
+                    "description": "Property. Model: 'https://schema.org/Text'. Specifies the required fail-safe position of the actuator."
+                },
+                "manualOverride": {
+                    "type": "boolean",
+                    "description": "Property. Model: 'https://schema.org/Boolean'. Identifies whether hand-operated operation is provided as an override (= TRUE) or not (= FALSE). Note that this value should be set to FALSE by default in the case of a Hand Operated Actuator."
+                }
+            }
+        }
+    ],
+    "required": [
+        "id",
+        "type"
+    ]
+}

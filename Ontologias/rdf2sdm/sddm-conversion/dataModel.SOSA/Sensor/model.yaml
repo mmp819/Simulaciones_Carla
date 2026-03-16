@@ -1,0 +1,25 @@
+Sensor:
+  description: Device, agent (including humans), or software (simulation) involved
+    in, or implementing, a Procedure. Sensors respond to a stimulus, e.g., a change
+    in the environment, or input data composed from the results of prior Observations,
+    and generate a Result. Sensors can be hosted by Platforms.
+  properties:
+    type:
+      description: Property. NGSI entity type. It must be equal to `Sensor`
+      enum:
+      - Sensor
+      type: string
+      x-ngsi:
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: http://www.w3.org/ns/sosa/
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.SOSA/blob/master/Sensor/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.SOSA/Sensor/schema.json
+  x-model-tags: SOSA Sensor
+  x-version: 0.0.1

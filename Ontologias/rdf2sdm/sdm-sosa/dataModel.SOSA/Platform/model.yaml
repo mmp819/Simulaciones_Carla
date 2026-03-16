@@ -1,0 +1,37 @@
+Platform:
+  description: A Platform is an entity that hosts other entities, particularly Sensors,
+    Actuators, Samplers, and other Platforms.
+  properties:
+    hosts:
+      description: Relation between a Platform and a Sensor, Actuator, Sampler, or
+        Platform, hosted or mounted on it.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    isHostedBy:
+      description: Relation between a Sensor, Actuator, Sampler, or Platform, and
+        the Platform that it is mounted on or hosted by.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    type:
+      description: Property. NGSI entity type. It must be equal to `Platform`
+      enum:
+      - Platform
+      type: string
+      x-ngsi:
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: http://www.w3.org/ns/sosa/
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.SOSA/blob/master/Platform/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.SOSA/Platform/schema.json
+  x-model-tags: SOSA Platform
+  x-version: 0.0.1

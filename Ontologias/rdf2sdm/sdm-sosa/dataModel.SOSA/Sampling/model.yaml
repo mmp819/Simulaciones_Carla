@@ -1,0 +1,52 @@
+Sampling:
+  description: An act of Sampling carries out a sampling Procedure to create or transform
+    one or more samples.
+  properties:
+    hasFeatureOfInterest:
+      description: A relation between an Observation and the entity whose quality
+        was observed, or between an Actuation and the entity whose property was modified,
+        or between an act of Sampling and the entity that was sampled.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    hasResult:
+      description: Relation linking an Observation or Actuation or act of Sampling
+        and a Result or Sample.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    madeBySampler:
+      description: Relation linking an act of Sampling to the Sampler (sampling device
+        or entity) that made it.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+    type:
+      description: Property. NGSI entity type. It must be equal to `Sampling`
+      enum:
+      - Sampling
+      type: string
+      x-ngsi:
+        type: Property
+    usedProcedure:
+      description: A relation to link to a re-usable Procedure used in making an Observation,
+        an Actuation, or a Sample, typically through a Sensor, Actuator or Sampler.
+      type: ''
+      x-ngsi:
+        model: ''
+        type: Property
+  required:
+  - id
+  - type
+  type: object
+  x-derived-from: http://www.w3.org/ns/sosa/
+  x-disclaimer: Redistribution and use in source and binary forms, with or without
+    modification, are permitted  provided that the license conditions are met. Copyleft
+    (c) 2022 Contributors to Smart Data Models Program
+  x-license-url: https://github.com/smart-data-models/dataModel.SOSA/blob/master/Sampling/LICENSE.md
+  x-model-schema: https://smart-data-models.github.com/dataModel.SOSA/Sampling/schema.json
+  x-model-tags: SOSA Sampling
+  x-version: 0.0.1
