@@ -66,6 +66,7 @@ SEMANTIC_LIDAR_SENSOR = "sensor.lidar_ray_cast_semantic"
 OUTPUT_DIR = "../recorder/sim_01_datamodel"
 IMG_SUBDIR = "rgb_images"
 LIDAR_SUBDIR = "lidar_clouds"
+RADAR_SUBDIR = "radar_data"
 
 # Conversiones
 MS_TO_KMH = 3.6
@@ -409,12 +410,20 @@ class SensorFactory:
                     "altitude": detection.altitude,
                     "depth": detection.depth
                 })
+            
+            fname = f"{data.frame:06d}.json"
+            rel_path = os.path.join(RADAR_SUBDIR, fname)
+            abs_path = os.path.join(OUTPUT_DIR, self.role, rel_path)
 
-                self._push("radar", {
-                    "frame": data.frame,
-                    "num_detections": len(points),
-                    "detections": points
-                })
+            with open(abs_path, "w") as f:
+                json.dump(points, f, indent = 4)
+            
+
+            self._push("radar", {
+                "frame": data.frame,
+                "num_detections": len(points),
+                "relative_path": rel_path
+            })
 
         radar.listen(callback)
         return radar
@@ -526,6 +535,7 @@ def prepare_directories(role_name):
     base = os.path.join(OUTPUT_DIR, role_name)
     os.makedirs(os.path.join(base, IMG_SUBDIR), exist_ok = True)
     os.makedirs(os.path.join(base, LIDAR_SUBDIR), exist_ok = True)
+    os.makedirs(os.path.join(base, RADAR_SUBDIR), exist_ok = True)
 
 def spawn_ego_vehicle(world, bp_id, role_name, spawn_point, config, queue):
     """
